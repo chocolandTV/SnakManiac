@@ -12,7 +12,7 @@ public partial class GameBoard : TileMap
 	private List<Vector2I> Snake_body = new List<Vector2I>();
 	RandomNumberGenerator randi = new RandomNumberGenerator();
 	Vector2I apple_Pos = new Vector2I(0, 0);
-
+	private bool isRunning = false;
 	// LOOKUP DIRECTION
 	Dictionary<Vector2I, Vector2I> _snake_tail = new Dictionary<Vector2I, Vector2I>();
 	Dictionary<Vector2I, Vector2I> _snake_corner_Left = new Dictionary<Vector2I, Vector2I>();
@@ -21,7 +21,7 @@ public partial class GameBoard : TileMap
 	Dictionary<Vector2I, Vector2I> _snake_mid = new Dictionary<Vector2I, Vector2I>();
 
 	// INPUT DIRECTION 
-	public Vector2I Snake_Direction;
+	public Vector2I Snake_Direction  =Vector2I.Right;
 	private Vector2I snake_old_Direction = new Vector2I(-1, 0);
 	public override void _Ready()
 	{
@@ -52,39 +52,51 @@ public partial class GameBoard : TileMap
 		_snake_mid.Add(new Vector2I(1, 0), new Vector2I(4, 0));
 		_snake_mid.Add(new Vector2I(-1, 0), new Vector2I(4, 0));
 
-		apple_Pos = get_New_Apple_Pos();
 		Spawn_Apple();
-		// GD.Print(apple_Pos);
+		GD.Print(apple_Pos);
 		// Spawn default snake
 		Reset_Snake();
-
+		isRunning = true;
 	}
 
 	private void Reset_Snake()
 	{
 		Snake_body.Clear();
-		Snake_body.Add(new Vector2I(3, 5));
-		Snake_body.Add(new Vector2I(4, 5));
 		Snake_body.Add(new Vector2I(5, 5));
-		snake_old_Direction = new Vector2I(-1, 0);
-		SetCell(0, Snake_body[0], Snake, new Vector2I(3, 1));
+		Snake_body.Add(new Vector2I(4, 5));
+		Snake_body.Add(new Vector2I(3, 5));
+		snake_old_Direction = new Vector2I(1, 0);
+		SetCell(0, Snake_body[0], Snake, new Vector2I(2, 0));
 		SetCell(0, Snake_body[1], Snake, new Vector2I(4, 0));
 		SetCell(0, Snake_body[2], Snake, new Vector2I(0, 0));
 	}
 	private void Clear_Board()
 	{
-
+		for (int x = 0; x < BoardSize; x++)
+		{
+			for (int y = 0; y < BoardSize; y++)
+			{
+				SetCell(0, new Vector2I(x,y), Snake, new Vector2I(7, 1));
+			}
+		}
 	}
 	private Vector2I get_New_Apple_Pos()
 	{
-		int x = randi.RandiRange(0, BoardSize);
-		int y = randi.RandiRange(0, BoardSize);
-		
+		int x = randi.RandiRange(0, 19);
+		int y = randi.RandiRange(0, 19);
+		//if Pos allready SnakeBody
+		foreach (Vector2I item in Snake_body)
+		{
+			Vector2I temp_Pos= new Vector2I(x,y);
+			if(temp_Pos == item)
+				return get_New_Apple_Pos();
+		}
 		return new Vector2I(x, y);
 	}
 	private void Spawn_Apple()
 	{
-		SetCell(0, get_New_Apple_Pos(), Apple, new Vector2I(0, 0));
+		apple_Pos = get_New_Apple_Pos();
+		SetCell(0, apple_Pos, Apple, new Vector2I(0, 0));
 	}
 	private void Draw_Snake()
 	{
@@ -137,6 +149,8 @@ public partial class GameBoard : TileMap
 			lastPos = temp_pos;
 		}
 		snake_old_Direction = Snake_Direction;
+		// // REMOVE TAIL
+		SetCell(0, lastPos, Snake, new Vector2I(7, 1));
 	}
 	
 	private void Check_apple_eaten(){
@@ -147,17 +161,24 @@ public partial class GameBoard : TileMap
 			Snake_body.Add(Snake_body.Last());
 			Spawn_Apple();
 			
-		}else
-		{
-			// REMOVE TAIL
-			SetCell(0, Snake_body.Last(), Snake, new Vector2I(7, 1));
 		}
+		
 	}
+	private void Check_Game_Over()
+	{
+		// Snake Leaves the screen // turn right
+
+		// Snake bites its own body
+
+	}
+	
 	public void On_game_snake_tick_timeout()
 	{
-		Move();
-		Draw_Snake();
-		Check_apple_eaten();
+		if(isRunning){
+			Move();
+			Draw_Snake();
+			Check_apple_eaten();
+		}
 
 	}
 }

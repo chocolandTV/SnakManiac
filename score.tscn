@@ -1,15 +1,37 @@
-[gd_scene load_steps=3 format=3 uid="uid://bpjfri83wmryg"]
+[gd_scene load_steps=5 format=3 uid="uid://bpjfri83wmryg"]
 
 [ext_resource type="FontFile" uid="uid://be16ohuykcn1p" path="res://Ressource/Font/PoetsenOne-Regular.ttf" id="1_n2nep"]
 [ext_resource type="Script" path="res://Ressource/Scripts/score.cs" id="1_ywx4e"]
+[ext_resource type="Texture2D" uid="uid://byohbqcxmv2uc" path="res://Ressource/apple.png" id="3_2ueqi"]
 
-[node name="Score" type="Node2D" groups=["ScoreGroup"]]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tirdx"]
+blend_mode = 1
+
+[node name="Score" type="Node2D" node_paths=PackedStringArray("scoreText") groups=["ScoreGroup"]]
 script = ExtResource("1_ywx4e")
+scoreText = NodePath("Panel/ScoreText")
 
-[node name="ScoreText" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="Panel" type="Panel" parent="."]
+offset_right = 80.0
+offset_bottom = 80.0
+
+[node name="ScoreText" type="Label" parent="Panel"]
+offset_left = 31.0
+offset_top = 30.0
+offset_right = 85.0
+offset_bottom = 78.0
 theme_override_colors/font_color = Color(0.2, 0.533333, 0.266667, 1)
 theme_override_fonts/font = ExtResource("1_n2nep")
-theme_override_font_sizes/font_size = 40
-text = "0"
+theme_override_font_sizes/font_size = 25
+text = "3"
+horizontal_alignment = 1
+
+[node name="Apple" type="Sprite2D" parent="Panel"]
+position = Vector2(15, 44)
+texture = ExtResource("3_2ueqi")
+
+[node name="Panel" type="Panel" parent="Panel"]
+material = SubResource("CanvasItemMaterial_tirdx")
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 15.0
