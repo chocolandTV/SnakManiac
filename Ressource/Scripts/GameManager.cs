@@ -12,6 +12,7 @@ public partial class GameManager : Node
       [Export]
       GameBoard gameBoard;
       //SCORE
+      private H_Menu h_Menu;
       public enum GAMESTATE
       {
             Menu,
@@ -73,6 +74,8 @@ public partial class GameManager : Node
                   // RESUME BUTTON HIDE
                   MenuPanel.Hide();
                   ScorePanel.Show();
+                  h_Menu = MenuPanel.GetNode<H_Menu>("../");
+                  h_Menu.EnableMenu();
                   gameBoard.isRunning = true;
             }
             // if GAME OVER -> SHOW HIGHSCORE

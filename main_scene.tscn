@@ -7,8 +7,8 @@
 [ext_resource type="Script" path="res://Ressource/Scripts/GameBoard.cs" id="3_dmf3g"]
 [ext_resource type="Script" path="res://Ressource/Scripts/InputManager.cs" id="4_ksoxy"]
 [ext_resource type="PackedScene" uid="uid://bpjfri83wmryg" path="res://score.tscn" id="6_ehukk"]
-[ext_resource type="AudioStream" uid="uid://dbpe5pba1alm4" path="res://Ressource/Sound/Normal.mp3" id="7_1kfrv"]
 [ext_resource type="AudioStream" uid="uid://dkxuapri0i7fs" path="res://Ressource/Sound/crunch.wav" id="7_1req0"]
+[ext_resource type="AudioStream" uid="uid://ci2p5aktilphj" path="res://Ressource/Sound/speedy(1).mp3" id="8_1fm2d"]
 [ext_resource type="PackedScene" uid="uid://ctpcjwj56qomf" path="res://h_menu.tscn" id="9_8b88t"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fx0yc"]
@@ -68,7 +68,7 @@ BoardSize = 19
 audioPlayer = NodePath("../CrunchSound")
 
 [node name="Game_Snake_Tick" type="Timer" parent="GameBoard"]
-wait_time = 0.133
+wait_time = 0.1
 autostart = true
 
 [node name="InputManager" type="Node" parent="." node_paths=PackedStringArray("gameBoard")]
@@ -80,11 +80,13 @@ visible = false
 position = Vector2(703, 695)
 
 [node name="BackgroundMusic" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("7_1kfrv")
+process_priority = 1
+stream = ExtResource("8_1fm2d")
 autoplay = true
 bus = &"Music"
 
 [node name="CrunchSound" type="AudioStreamPlayer2D" parent="."]
+process_priority = -1
 stream = ExtResource("7_1req0")
 volume_db = -10.306
 pitch_scale = 1.15

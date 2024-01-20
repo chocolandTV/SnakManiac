@@ -145,6 +145,7 @@ public partial class GameBoard : TileMap
 		if (Snake_Direction == OppositeDirection(snake_old_Direction))
 		{
 			Snake_Direction = snake_old_Direction;
+			GD.Print("OPPOSITE DIRECTION");
 		}
 		// CHECK COLLISION AND MAP
 		Check_Collission();
@@ -192,13 +193,13 @@ public partial class GameBoard : TileMap
 	{
 
 		// Snake Leaves the screen -> turn right
-		if (Snake_body[0].X >= BoardSize && snake_old_Direction == new Vector2I(1, 0))
+		if (Snake_body[0].X >= BoardSize && Snake_Direction == new Vector2I(1, 0))
 			Snake_Direction = new Vector2I(0, 1);
-		if (Snake_body[0].X <= 0 && snake_old_Direction == new Vector2I(-1, 0))
+		if (Snake_body[0].X <= 0 && Snake_Direction == new Vector2I(-1, 0))
 			Snake_Direction = new Vector2I(0, -1);
-		if (Snake_body[0].Y >= BoardSize && snake_old_Direction == new Vector2I(0, 1))
+		if (Snake_body[0].Y >= BoardSize && Snake_Direction == new Vector2I(0, 1))
 			Snake_Direction = new Vector2I(-1, 0);
-		if (Snake_body[0].Y <= 0 && snake_old_Direction == new Vector2I(0, -1))
+		if (Snake_body[0].Y <= 0 && Snake_Direction == new Vector2I(0, -1))
 			Snake_Direction = new Vector2I(1, 0);
 		// Snake bites its own body
 		for (int i = 1; i < Snake_body.Count; i++)

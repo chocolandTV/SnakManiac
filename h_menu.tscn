@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dpb26wxvawgdn" path="res://Ressource/Controls.png" id="6_kvvnu"]
 [ext_resource type="Texture2D" uid="uid://dxixg1m8oqnac" path="res://Ressource/UI_Border.png" id="7_jbgdr"]
 
-[node name="H_Menu" type="Control"]
+[node name="H_Menu" type="Control" node_paths=PackedStringArray("optionMenu", "HighscoreMenu", "VolumeSlider", "SFXslider", "MusicSlider")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,6 +16,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_fx78u")
+optionMenu = NodePath("OptionPanel")
+HighscoreMenu = NodePath("HighscorePanel")
+VolumeSlider = NodePath("OptionPanel/VBoxContainer/M_Volume_Panel/MasterSlider")
+SFXslider = NodePath("OptionPanel/VBoxContainer/S_Volume_Panel/SoundSlider")
+MusicSlider = NodePath("OptionPanel/VBoxContainer/Music_Volume_Panel/MusicSlider")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 0
@@ -48,7 +53,7 @@ text = "Play"
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_xc8ll")
 theme_override_font_sizes/font_size = 33
-text = "Option"
+text = "Options"
 
 [node name="Button_Quit" type="Button" parent="MenuButtons/VBoxContainer"]
 layout_mode = 2
@@ -227,6 +232,11 @@ max_value = 1.0
 step = 0.001
 value = 0.5
 script = ExtResource("5_gnutd")
+
+[node name="HighscorePanel" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [connection signal="pressed" from="MenuButtons/VBoxContainer/Button_Play" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="MenuButtons/VBoxContainer/Button_Option" to="." method="_on_option_pressed"]

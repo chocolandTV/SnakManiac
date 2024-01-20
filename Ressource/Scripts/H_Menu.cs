@@ -7,10 +7,18 @@ public partial class H_Menu : Control
     MarginContainer optionMenu;
     [Export]
     MarginContainer HighscoreMenu;
+    // SLIDER EFFECT OFF
+    [Export]
+    HSlider VolumeSlider,SFXslider, MusicSlider;
     private bool showOptions = false;
     private bool showHighscore = false;
     private GameManager gameManager;
-
+    public void EnableMenu()
+    {
+        VolumeSlider.Editable= true;
+        MusicSlider.Editable = true;
+        SFXslider.Editable = true;
+    }
     public override void _Ready()
     {
         gameManager = GetNode<GameManager>("../");
@@ -19,6 +27,9 @@ public partial class H_Menu : Control
     public void _on_start_pressed()
     {
         // GetTree().ChangeSceneToFile("res://main_scene.tscn");
+        VolumeSlider.Editable= false;
+        MusicSlider.Editable = false;
+        SFXslider.Editable = false;
         gameManager.ChangeGameState(GameManager.GAMESTATE.Game_Running);
     }
     public void _on_option_pressed()
