@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ctpcjwj56qomf"]
+[gd_scene load_steps=9 format=3 uid="uid://ctpcjwj56qomf"]
 
 [ext_resource type="Script" path="res://Ressource/Scripts/H_Menu.cs" id="1_fx78u"]
 [ext_resource type="FontFile" uid="uid://be16ohuykcn1p" path="res://Ressource/Font/PoetsenOne-Regular.ttf" id="2_xc8ll"]
@@ -7,8 +7,9 @@
 [ext_resource type="Script" path="res://Ressource/Scripts/MusicSlider.cs" id="5_gnutd"]
 [ext_resource type="Texture2D" uid="uid://dpb26wxvawgdn" path="res://Ressource/Controls.png" id="6_kvvnu"]
 [ext_resource type="Texture2D" uid="uid://dxixg1m8oqnac" path="res://Ressource/UI_Border.png" id="7_jbgdr"]
+[ext_resource type="Texture2D" uid="uid://byohbqcxmv2uc" path="res://Ressource/apple.png" id="8_sajja"]
 
-[node name="H_Menu" type="Control" node_paths=PackedStringArray("optionMenu", "HighscoreMenu", "VolumeSlider", "SFXslider", "MusicSlider")]
+[node name="H_Menu" type="Control" node_paths=PackedStringArray("optionMenu", "HighscoreMenu", "GameOverMenu", "VolumeSlider", "SFXslider", "MusicSlider", "GameOverHighscoreValue", "button_start", "button_Resume", "PauseColorRect")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,9 +19,22 @@ grow_vertical = 2
 script = ExtResource("1_fx78u")
 optionMenu = NodePath("OptionPanel")
 HighscoreMenu = NodePath("HighscorePanel")
+GameOverMenu = NodePath("GameOverPanel")
 VolumeSlider = NodePath("OptionPanel/VBoxContainer/M_Volume_Panel/MasterSlider")
 SFXslider = NodePath("OptionPanel/VBoxContainer/S_Volume_Panel/SoundSlider")
 MusicSlider = NodePath("OptionPanel/VBoxContainer/Music_Volume_Panel/MusicSlider")
+GameOverHighscoreValue = NodePath("GameOverPanel/VBoxContainer/Panel/HighscoreValue")
+button_start = NodePath("MenuButtons/VBoxContainer/Button_Play")
+button_Resume = NodePath("MenuButtons/VBoxContainer/Button_Resume")
+PauseColorRect = NodePath("PauseColor")
+
+[node name="PauseColor" type="ColorRect" parent="."]
+visible = false
+custom_minimum_size = Vector2(800, 800)
+layout_mode = 0
+offset_right = 800.0
+offset_bottom = 800.0
+color = Color(0, 0, 0, 1)
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 0
@@ -43,6 +57,13 @@ theme_override_constants/margin_bottom = 20
 [node name="VBoxContainer" type="VBoxContainer" parent="MenuButtons"]
 layout_mode = 2
 
+[node name="Button_Resume" type="Button" parent="MenuButtons/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_xc8ll")
+theme_override_font_sizes/font_size = 33
+text = "Resume"
+
 [node name="Button_Play" type="Button" parent="MenuButtons/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_xc8ll")
@@ -63,6 +84,7 @@ text = "Quit
 "
 
 [node name="OptionPanel" type="MarginContainer" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 200.0
 offset_top = 88.0
@@ -234,13 +256,110 @@ value = 0.5
 script = ExtResource("5_gnutd")
 
 [node name="HighscorePanel" type="MarginContainer" parent="."]
+visible = false
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="GameOverPanel" type="MarginContainer" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverPanel"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="GameOverPanel/VBoxContainer"]
+custom_minimum_size = Vector2(800, 800)
+layout_mode = 2
+color = Color(0, 0, 0, 0.67451)
+
+[node name="Panel" type="Panel" parent="GameOverPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GameOverPanel/VBoxContainer/Panel"]
+layout_mode = 2
+offset_left = 9.0
+offset_top = -604.0
+offset_right = 809.0
+offset_bottom = -581.0
+theme_override_fonts/font = ExtResource("2_xc8ll")
+theme_override_font_sizes/font_size = 40
+text = "Game Over"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="GameOverPanel/VBoxContainer/Panel"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 0
+offset_left = 357.0
+offset_top = -711.0
+offset_right = 457.0
+offset_bottom = -611.0
+texture = ExtResource("8_sajja")
+
+[node name="HighscoreText" type="Label" parent="GameOverPanel/VBoxContainer/Panel"]
+layout_mode = 0
+offset_left = 187.0
+offset_top = -455.0
+offset_right = 432.0
+offset_bottom = -413.0
+theme_override_fonts/font = ExtResource("2_xc8ll")
+theme_override_font_sizes/font_size = 30
+text = "Your Highscore : "
+
+[node name="HighscoreValue" type="Label" parent="GameOverPanel/VBoxContainer/Panel"]
+offset_left = 467.0
+offset_top = -461.0
+offset_right = 712.0
+offset_bottom = -406.0
+theme_override_fonts/font = ExtResource("2_xc8ll")
+theme_override_font_sizes/font_size = 40
+text = "33"
+
+[node name="ColorRect2" type="ColorRect" parent="GameOverPanel/VBoxContainer/Panel"]
+custom_minimum_size = Vector2(220, 75)
+offset_left = 404.0
+offset_top = -281.0
+offset_right = 624.0
+offset_bottom = -206.0
+color = Color(0, 0.301961, 0, 1)
+
+[node name="ColorRect" type="ColorRect" parent="GameOverPanel/VBoxContainer/Panel"]
+custom_minimum_size = Vector2(220, 75)
+layout_mode = 0
+offset_left = 138.0
+offset_top = -281.0
+offset_right = 358.0
+offset_bottom = -206.0
+color = Color(0, 0.301961, 0, 1)
+
+[node name="Button_Restart" type="Button" parent="GameOverPanel/VBoxContainer/Panel"]
+layout_mode = 0
+offset_left = 170.0
+offset_top = -272.0
+offset_right = 316.0
+offset_bottom = -216.0
+theme_override_fonts/font = ExtResource("2_xc8ll")
+theme_override_font_sizes/font_size = 40
+text = "Restart"
+flat = true
+
+[node name="Button_Quit" type="Button" parent="GameOverPanel/VBoxContainer/Panel"]
+offset_left = 439.0
+offset_top = -272.0
+offset_right = 585.0
+offset_bottom = -216.0
+theme_override_fonts/font = ExtResource("2_xc8ll")
+theme_override_font_sizes/font_size = 40
+text = "Quit"
+flat = true
+
+[connection signal="pressed" from="MenuButtons/VBoxContainer/Button_Resume" to="." method="_on_Resume_pressed"]
 [connection signal="pressed" from="MenuButtons/VBoxContainer/Button_Play" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="MenuButtons/VBoxContainer/Button_Option" to="." method="_on_option_pressed"]
 [connection signal="pressed" from="MenuButtons/VBoxContainer/Button_Quit" to="." method="_on_quit_pressed"]
 [connection signal="value_changed" from="OptionPanel/VBoxContainer/M_Volume_Panel/MasterSlider" to="OptionPanel/VBoxContainer/M_Volume_Panel/MasterSlider" method="_on_value_changed"]
 [connection signal="value_changed" from="OptionPanel/VBoxContainer/S_Volume_Panel/SoundSlider" to="OptionPanel/VBoxContainer/S_Volume_Panel/SoundSlider" method="_on_value_changed"]
 [connection signal="value_changed" from="OptionPanel/VBoxContainer/Music_Volume_Panel/MusicSlider" to="OptionPanel/VBoxContainer/Music_Volume_Panel/MusicSlider" method="_on_value_changed"]
+[connection signal="pressed" from="GameOverPanel/VBoxContainer/Panel/Button_Restart" to="." method="_on_Restart_pressed"]
+[connection signal="pressed" from="GameOverPanel/VBoxContainer/Panel/Button_Quit" to="." method="_on_quit_pressed"]

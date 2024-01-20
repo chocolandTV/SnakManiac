@@ -23,10 +23,14 @@ public partial class GameBoard : TileMap
 	Dictionary<Vector2I, Vector2I> _snake_mid = new Dictionary<Vector2I, Vector2I>();
 
 	// INPUT DIRECTION 
-	public Vector2I Snake_Direction = Vector2I.Right;
+	public Vector2I Input_Direction = Vector2I.Right;
+	private Vector2I Snake_Direction = Vector2I.Right;
 	private Vector2I snake_old_Direction = new Vector2I(-1, 0);
+	public int GetScore => Snake_body.Count;
+	private GameManager gameManager;
 	public override void _Ready()
 	{
+		gameManager = GetNode<GameManager>("../");
 		// HEAD 
 		_snake_head.Add(new Vector2I(0, 1), new Vector2I(3, 0));
 		_snake_head.Add(new Vector2I(0, -1), new Vector2I(2, 1));
@@ -60,13 +64,19 @@ public partial class GameBoard : TileMap
 		Reset_Snake();
 		isRunning = false;
 	}
-
+	public void RestartBoard()
+	{
+		Clear_Board();
+		Reset_Snake();
+		Spawn_Apple();
+		isRunning = true;
+	}
 	private void Reset_Snake()
 	{
 		Snake_body.Clear();
-		Snake_body.Add(new Vector2I(5, 5));
-		Snake_body.Add(new Vector2I(4, 5));
-		Snake_body.Add(new Vector2I(3, 5));
+		Snake_body.Add(new Vector2I(10, 10));
+		Snake_body.Add(new Vector2I(9, 10));
+		Snake_body.Add(new Vector2I(8, 10));
 		snake_old_Direction = new Vector2I(1, 0);
 		SetCell(0, Snake_body[0], Snake, new Vector2I(2, 0));
 		SetCell(0, Snake_body[1], Snake, new Vector2I(4, 0));
@@ -145,7 +155,7 @@ public partial class GameBoard : TileMap
 		if (Snake_Direction == OppositeDirection(snake_old_Direction))
 		{
 			Snake_Direction = snake_old_Direction;
-			GD.Print("OPPOSITE DIRECTION");
+			
 		}
 		// CHECK COLLISION AND MAP
 		Check_Collission();
@@ -213,18 +223,17 @@ public partial class GameBoard : TileMap
 	private void Game_Over()
 	{
 		GD.Print("Game Over");
-		// PAUSE GAME
+		
 		isRunning = false;
-		// SHOW GAMEOVER UI
-
-		// HIGHSCORE SAVE
+		gameManager.ChangeGameState(GameManager.GAMESTATE.Game_Over);
+		
 
 	}
 	public void On_game_snake_tick_timeout()
 	{
 		if (isRunning)
 		{
-			
+			Snake_Direction = Input_Direction;
 			Move();
 			Draw_Snake();
 			Check_apple_eaten();

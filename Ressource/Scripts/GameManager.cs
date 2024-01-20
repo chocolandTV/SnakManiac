@@ -8,26 +8,30 @@ public partial class GameManager : Node
       Node2D ScorePanel;
       [Export]
       Control MenuPanel;
-
+      [Export]
+      H_Menu h_Menu;
       [Export]
       GameBoard gameBoard;
+      private bool isPaused =false;
       //SCORE
-      private H_Menu h_Menu;
+      
       public enum GAMESTATE
       {
             Menu,
             Game_Running,
             Game_Over,
-
             Pause
       }
       private GAMESTATE CurrentState;
-      //START GAME 
-      private void StartGame()
+   
+    //START GAME 
+    private void StartGame()
       {
             gameBoard.isRunning = true;
-            
-            ChangeGameState( CurrentState = GAMESTATE.Game_Running);
+            gameBoard.RestartBoard();
+            CurrentState = GAMESTATE.Game_Running;
+            MenuPanel.Hide();
+            ScorePanel.Show();
       }
       // RESTART
       private void RestartGame()
@@ -36,7 +40,17 @@ public partial class GameManager : Node
             CurrentState = GAMESTATE.Game_Over;
             StartGame();
       }
-
+      // CHANGE PAUSE
+      public void OnChangePauseButton()
+      {
+            isPaused =!isPaused;
+            if(isPaused)
+            {
+                  ChangeGameState(GAMESTATE.Pause);
+            }else{
+                  ChangeGameState(GAMESTATE.Game_Running);
+            }
+      }
       // CHANGE GAMESTATE 
       public void ChangeGameState (GAMESTATE newState)
       {     // ISSUE SECURE
@@ -66,6 +80,8 @@ public partial class GameManager : Node
             {
                   // RESUME BUTTON SHOW
                   MenuPanel.Show();
+                  h_Menu.EnableMenu();
+                  h_Menu.EnablePauseMode(true);
                   ScorePanel.Hide();
                   gameBoard.isRunning = false;
             }
@@ -73,9 +89,9 @@ public partial class GameManager : Node
             {
                   // RESUME BUTTON HIDE
                   MenuPanel.Hide();
+                  h_Menu.EnablePauseMode(false);
                   ScorePanel.Show();
-                  h_Menu = MenuPanel.GetNode<H_Menu>("../");
-                  h_Menu.EnableMenu();
+                  isPaused =false;
                   gameBoard.isRunning = true;
             }
             // if GAME OVER -> SHOW HIGHSCORE
@@ -83,9 +99,9 @@ public partial class GameManager : Node
             {
                   // RESTART BUTTON SHOW
                   MenuPanel.Show();
+                  h_Menu.EnableGameOverMenu(gameBoard.GetScore);
                   ScorePanel.Hide();
-                  gameBoard.isRunning = false;
-                  // HIGHSCORE 
+                  // HIGHSCORE SAVE
             }
             CurrentState = newState;
             
