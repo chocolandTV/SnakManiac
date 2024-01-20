@@ -1,0 +1,51 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctpcjwj56qomf"]
+
+[ext_resource type="Script" path="res://Ressource/Scripts/H_Menu.cs" id="1_fx78u"]
+
+[node name="H_Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fx78u")
+
+[node name="MenuButtons" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 200.0
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 300
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuButtons"]
+layout_mode = 2
+
+[node name="Button_Play" type="Button" parent="MenuButtons/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 33
+text = "Play"
+
+[node name="Button_Option" type="Button" parent="MenuButtons/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 33
+text = "Option"
+
+[node name="Button_Quit" type="Button" parent="MenuButtons/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 33
+text = "Quit
+"
+
+[node name="OptionPanel" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[connection signal="pressed" from="MenuButtons/VBoxContainer/Button_Play" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="MenuButtons/VBoxContainer/Button_Option" to="." method="_on_option_pressed"]
+[connection signal="pressed" from="MenuButtons/VBoxContainer/Button_Quit" to="." method="_on_quit_pressed"]

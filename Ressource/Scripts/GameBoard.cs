@@ -7,6 +7,8 @@ public partial class GameBoard : TileMap
 {
 	[Export]
 	public int BoardSize;
+	[Export]
+	public AudioStreamPlayer2D audioPlayer;
 	const int Snake = 0;
 	const int Apple = 1;
 	private List<Vector2I> Snake_body = new List<Vector2I>();
@@ -21,7 +23,7 @@ public partial class GameBoard : TileMap
 	Dictionary<Vector2I, Vector2I> _snake_mid = new Dictionary<Vector2I, Vector2I>();
 
 	// INPUT DIRECTION 
-	public Vector2I Snake_Direction  =Vector2I.Right;
+	public Vector2I Snake_Direction = Vector2I.Right;
 	private Vector2I snake_old_Direction = new Vector2I(-1, 0);
 	public override void _Ready()
 	{
@@ -53,7 +55,7 @@ public partial class GameBoard : TileMap
 		_snake_mid.Add(new Vector2I(-1, 0), new Vector2I(4, 0));
 
 		Spawn_Apple();
-		GD.Print(apple_Pos);
+		// GD.Print(apple_Pos);
 		// Spawn default snake
 		Reset_Snake();
 		isRunning = true;
@@ -76,7 +78,7 @@ public partial class GameBoard : TileMap
 		{
 			for (int y = 0; y < BoardSize; y++)
 			{
-				SetCell(0, new Vector2I(x,y), Snake, new Vector2I(7, 1));
+				SetCell(0, new Vector2I(x, y), Snake, new Vector2I(7, 1));
 			}
 		}
 	}
@@ -87,8 +89,8 @@ public partial class GameBoard : TileMap
 		//if Pos allready SnakeBody
 		foreach (Vector2I item in Snake_body)
 		{
-			Vector2I temp_Pos= new Vector2I(x,y);
-			if(temp_Pos == item)
+			Vector2I temp_Pos = new Vector2I(x, y);
+			if (temp_Pos == item)
 				return get_New_Apple_Pos();
 		}
 		return new Vector2I(x, y);
@@ -102,7 +104,7 @@ public partial class GameBoard : TileMap
 	{
 		// draw head
 		SetCell(0, Snake_body.First(), Snake, _snake_head[snake_old_Direction]);// HEAD add + direction
-		// for each snakebody
+																				// for each snakebody
 		for (int i = 1; i < Snake_body.Count; i++)
 		{
 			Vector2I current_Direction = Snake_body[i - 1] - Snake_body[i];
@@ -139,6 +141,14 @@ public partial class GameBoard : TileMap
 	}
 	private void Move()
 	{
+		// CHECK IF NEW DIRECTION != 180 
+		if (Snake_Direction == OppositeDirection(snake_old_Direction))
+		{
+			Snake_Direction = snake_old_Direction;
+		}
+		// CHECK COLLISION AND MAP
+		Check_Collission();
+
 		Vector2I lastPos = Snake_body.First();
 		Snake_body[0] = Snake_body[0] + Snake_Direction;
 
@@ -152,29 +162,68 @@ public partial class GameBoard : TileMap
 		// // REMOVE TAIL
 		SetCell(0, lastPos, Snake, new Vector2I(7, 1));
 	}
-	
-	private void Check_apple_eaten(){
+
+	private void Check_apple_eaten()
+	{
 		if (apple_Pos == Snake_body[0])
 		{
-			GD.Print("Apple eaten =D ");
+			// GD.Print("Apple eaten =D ");
 			GetTree().CallGroup("ScoreGroup", "update_score", Snake_body.Count);
 			Snake_body.Add(Snake_body.Last());
+			audioPlayer.Play();
 			Spawn_Apple();
-			
+
 		}
-		
+
 	}
-	private void Check_Game_Over()
+
+	private static Vector2I OppositeDirection(Vector2I snake_old_Direction)
 	{
-		// Snake Leaves the screen // turn right
+		switch (snake_old_Direction)
+		{
+			case Vector2I(0, -1): return Vector2I.Down;
+			case Vector2I(-1, 0): return Vector2I.Right;
+			case Vector2I(1, 0): return Vector2I.Left;
+			case Vector2I(0, 1): return Vector2I.Up;
+			default: throw new ArgumentException();
+		}
+	}
+	private void Check_Collission()
+	{
 
+		// Snake Leaves the screen -> turn right
+		if (Snake_body[0].X >= BoardSize && snake_old_Direction == new Vector2I(1, 0))
+			Snake_Direction = new Vector2I(0, 1);
+		if (Snake_body[0].X <= 0 && snake_old_Direction == new Vector2I(-1, 0))
+			Snake_Direction = new Vector2I(0, -1);
+		if (Snake_body[0].Y >= BoardSize && snake_old_Direction == new Vector2I(0, 1))
+			Snake_Direction = new Vector2I(-1, 0);
+		if (Snake_body[0].Y <= 0 && snake_old_Direction == new Vector2I(0, -1))
+			Snake_Direction = new Vector2I(1, 0);
 		// Snake bites its own body
+		for (int i = 1; i < Snake_body.Count; i++)
+		{
+			if (Snake_body[0] == Snake_body[i])
+				Game_Over();
+		}
+
 
 	}
-	
+	private void Game_Over()
+	{
+		GD.Print("Game Over");
+		// PAUSE GAME
+		isRunning = false;
+		// SHOW GAMEOVER UI
+
+		// HIGHSCORE SAVE
+
+	}
 	public void On_game_snake_tick_timeout()
 	{
-		if(isRunning){
+		if (isRunning)
+		{
+			
 			Move();
 			Draw_Snake();
 			Check_apple_eaten();
