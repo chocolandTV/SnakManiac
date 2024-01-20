@@ -14,7 +14,7 @@ public partial class GameBoard : TileMap
 	private List<Vector2I> Snake_body = new List<Vector2I>();
 	RandomNumberGenerator randi = new RandomNumberGenerator();
 	Vector2I apple_Pos = new Vector2I(0, 0);
-	private bool isRunning = false;
+	public bool isRunning = false;
 	// LOOKUP DIRECTION
 	Dictionary<Vector2I, Vector2I> _snake_tail = new Dictionary<Vector2I, Vector2I>();
 	Dictionary<Vector2I, Vector2I> _snake_corner_Left = new Dictionary<Vector2I, Vector2I>();
@@ -58,7 +58,7 @@ public partial class GameBoard : TileMap
 		// GD.Print(apple_Pos);
 		// Spawn default snake
 		Reset_Snake();
-		isRunning = true;
+		isRunning = false;
 	}
 
 	private void Reset_Snake()

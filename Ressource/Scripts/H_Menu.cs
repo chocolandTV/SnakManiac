@@ -9,10 +9,17 @@ public partial class H_Menu : Control
     MarginContainer HighscoreMenu;
     private bool showOptions = false;
     private bool showHighscore = false;
+    private GameManager gameManager;
 
+    public override void _Ready()
+    {
+        gameManager = GetNode<GameManager>("../");
+        GD.Print(gameManager.Name);
+    }
     public void _on_start_pressed()
     {
-        GetTree().ChangeSceneToFile("res://main_scene.tscn");
+        // GetTree().ChangeSceneToFile("res://main_scene.tscn");
+        gameManager.ChangeGameState(GameManager.GAMESTATE.Game_Running);
     }
     public void _on_option_pressed()
     {
