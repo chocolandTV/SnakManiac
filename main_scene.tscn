@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://ba8sjv1bxg4ex"]
+[gd_scene load_steps=27 format=3 uid="uid://ba8sjv1bxg4ex"]
 
 [ext_resource type="Texture2D" uid="uid://blyonnvrx2dg4" path="res://Ressource/snakeSprite.png" id="1_be6w0"]
 [ext_resource type="Texture2D" uid="uid://u7d8x2vrc2i0" path="res://Ressource/grass.png" id="1_dotqa"]
@@ -6,11 +6,15 @@
 [ext_resource type="Texture2D" uid="uid://byohbqcxmv2uc" path="res://Ressource/apple.png" id="2_xxr7o"]
 [ext_resource type="Script" path="res://Ressource/Scripts/GameBoard.cs" id="3_dmf3g"]
 [ext_resource type="Script" path="res://Ressource/Scripts/InputManager.cs" id="4_ksoxy"]
+[ext_resource type="Texture2D" uid="uid://d1h1xru1w0a8m" path="res://Ressource/Coin.png" id="5_auvdr"]
 [ext_resource type="PackedScene" uid="uid://cvwraxid04yf" path="res://Ressource/particle.tscn" id="6_dgto7"]
 [ext_resource type="PackedScene" uid="uid://bpjfri83wmryg" path="res://score.tscn" id="6_ehukk"]
+[ext_resource type="Texture2D" uid="uid://cvw4d66bxn1mv" path="res://Ressource/Diamond.png" id="6_w4k8t"]
 [ext_resource type="AudioStream" uid="uid://dbpe5pba1alm4" path="res://Ressource/Sound/Normal.mp3" id="7_1kfrv"]
 [ext_resource type="AudioStream" uid="uid://dkxuapri0i7fs" path="res://Ressource/Sound/crunch.wav" id="7_1req0"]
+[ext_resource type="Texture2D" uid="uid://dexwbddqr245" path="res://Ressource/Unicorn.png" id="7_4o0fc"]
 [ext_resource type="AudioStream" uid="uid://ci2p5aktilphj" path="res://Ressource/Sound/speedy(1).mp3" id="8_1fm2d"]
+[ext_resource type="Texture2D" uid="uid://cc2j84f6q6i0c" path="res://Ressource/Cherry.png" id="8_yfn8a"]
 [ext_resource type="PackedScene" uid="uid://ctpcjwj56qomf" path="res://h_menu.tscn" id="9_8b88t"]
 [ext_resource type="AudioStream" uid="uid://dlxysucutefg7" path="res://Ressource/Sound/FinalBreeze.mp3" id="9_ayc51"]
 [ext_resource type="Script" path="res://Ressource/Scripts/BackgroundMusic.cs" id="11_pn0pj"]
@@ -42,10 +46,34 @@ texture = ExtResource("2_xxr7o")
 texture_region_size = Vector2i(40, 40)
 0:0/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v5qyi"]
+texture = ExtResource("5_auvdr")
+texture_region_size = Vector2i(40, 40)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5ypyp"]
+texture = ExtResource("6_w4k8t")
+texture_region_size = Vector2i(40, 40)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n0m55"]
+texture = ExtResource("7_4o0fc")
+texture_region_size = Vector2i(40, 40)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nqsb5"]
+texture = ExtResource("8_yfn8a")
+texture_region_size = Vector2i(40, 40)
+0:0/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_bf581"]
 tile_size = Vector2i(40, 40)
 sources/0 = SubResource("TileSetAtlasSource_fx0yc")
 sources/1 = SubResource("TileSetAtlasSource_nw3or")
+sources/2 = SubResource("TileSetAtlasSource_v5qyi")
+sources/3 = SubResource("TileSetAtlasSource_5ypyp")
+sources/4 = SubResource("TileSetAtlasSource_n0m55")
+sources/5 = SubResource("TileSetAtlasSource_nqsb5")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_e10hh"]
 playback_mode = 1
@@ -68,12 +96,16 @@ gameBoard = NodePath("GameBoard")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 150.0
+offset_bottom = -30.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_dotqa")
+expand_mode = 5
 stretch_mode = 1
 
 [node name="GameBoard" type="TileMap" parent="." node_paths=PackedStringArray("particle", "audioPlayer")]
+position = Vector2(0, 150)
 tile_set = SubResource("TileSet_bf581")
 rendering_quadrant_size = 20
 format = 2
@@ -96,8 +128,7 @@ gameBoard = NodePath("../GameBoard")
 gameManager = NodePath("..")
 
 [node name="Score" parent="." instance=ExtResource("6_ehukk")]
-visible = false
-position = Vector2(703, 695)
+position = Vector2(6, 45)
 
 [node name="BackgroundMusic" type="AudioStreamPlayer2D" parent="."]
 process_priority = 1
@@ -111,6 +142,7 @@ process_priority = -1
 stream = ExtResource("7_1req0")
 volume_db = -10.306
 pitch_scale = 1.15
+max_polyphony = 3
 bus = &"SFX"
 
 [node name="H_Menu" parent="." instance=ExtResource("9_8b88t")]

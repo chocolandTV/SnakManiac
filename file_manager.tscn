@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0rnbodq3lgwi"]
+
+[ext_resource type="Script" path="res://Ressource/Scripts/FileManager.cs" id="1_fg32t"]
+
+[node name="FileManager" type="Node"]
+script = ExtResource("1_fg32t")

@@ -15,10 +15,14 @@ run/main_scene="res://main_scene.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://Ressource/LOGO2.png"
 
+[autoload]
+
+FileManager="*res://file_manager.tscn"
+
 [display]
 
 window/size/viewport_width=800
-window/size/viewport_height=800
+window/size/viewport_height=980
 
 [dotnet]
 

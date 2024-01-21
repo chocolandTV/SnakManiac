@@ -1,0 +1,87 @@
+[gd_scene load_steps=9 format=3 uid="uid://bo4v1k5us0db4"]
+
+[ext_resource type="Script" path="res://Ressource/Scripts/highscore_test.cs" id="1_itohu"]
+[ext_resource type="PackedScene" uid="uid://bpjfri83wmryg" path="res://score.tscn" id="1_xy7ju"]
+[ext_resource type="Texture2D" uid="uid://cvw4d66bxn1mv" path="res://Ressource/Diamond.png" id="3_1tow5"]
+[ext_resource type="Texture2D" uid="uid://dexwbddqr245" path="res://Ressource/Unicorn.png" id="4_355hx"]
+[ext_resource type="Texture2D" uid="uid://d1h1xru1w0a8m" path="res://Ressource/Coin.png" id="5_8ay5k"]
+[ext_resource type="Texture2D" uid="uid://cc2j84f6q6i0c" path="res://Ressource/Cherry.png" id="6_616jq"]
+[ext_resource type="Texture2D" uid="uid://byohbqcxmv2uc" path="res://Ressource/apple.png" id="7_4lj8r"]
+[ext_resource type="Texture2D" uid="uid://201oi4lwsghc" path="res://icon.svg" id="8_qgsrf"]
+
+[node name="HighscoreTest" type="Node2D"]
+script = ExtResource("1_itohu")
+
+[node name="Score" parent="." instance=ExtResource("1_xy7ju")]
+
+[node name="ButtonControl" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 19.0
+offset_top = 112.0
+offset_right = 778.0
+offset_bottom = 490.0
+
+[node name="DiamondButton" type="Button" parent="ButtonControl"]
+layout_mode = 0
+offset_left = -6.0
+offset_top = 58.0
+offset_right = 156.0
+offset_bottom = 106.0
+text = "+ Diamonds"
+icon = ExtResource("3_1tow5")
+
+[node name="UnicornButton" type="Button" parent="ButtonControl"]
+offset_left = 129.0
+offset_top = 111.0
+offset_right = 291.0
+offset_bottom = 159.0
+text = "+ Unicorn"
+icon = ExtResource("4_355hx")
+
+[node name="CoinButton" type="Button" parent="ButtonControl"]
+offset_left = 290.0
+offset_top = 161.0
+offset_right = 452.0
+offset_bottom = 209.0
+text = "+ Coin"
+icon = ExtResource("5_8ay5k")
+
+[node name="CherryButton" type="Button" parent="ButtonControl"]
+offset_left = 453.0
+offset_top = 108.0
+offset_right = 615.0
+offset_bottom = 156.0
+text = "+ Cherry"
+icon = ExtResource("6_616jq")
+
+[node name="AppleButton" type="Button" parent="ButtonControl"]
+offset_left = 613.0
+offset_top = 61.0
+offset_right = 775.0
+offset_bottom = 109.0
+text = "+ Apple"
+icon = ExtResource("7_4lj8r")
+
+[node name="FileLoadButton" type="Button" parent="ButtonControl"]
+offset_left = 120.0
+offset_top = 319.0
+offset_right = 282.0
+offset_bottom = 367.0
+text = "Load Data
+"
+icon = ExtResource("8_qgsrf")
+
+[node name="FileSaveButton" type="Button" parent="ButtonControl"]
+offset_left = 429.0
+offset_top = 322.0
+offset_right = 646.0
+offset_bottom = 458.0
+text = "Save Data"
+icon = ExtResource("8_qgsrf")
+
+[connection signal="pressed" from="ButtonControl/DiamondButton" to="." method="_on_button_add_Fruit"]
+[connection signal="pressed" from="ButtonControl/UnicornButton" to="." method="_on_button_add_Fruit"]
+[connection signal="pressed" from="ButtonControl/CoinButton" to="." method="_on_button_add_Fruit"]
+[connection signal="pressed" from="ButtonControl/CherryButton" to="." method="_on_button_add_Fruit"]
+[connection signal="pressed" from="ButtonControl/AppleButton" to="." method="_on_button_add_Fruit"]
