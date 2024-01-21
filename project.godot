@@ -23,6 +23,8 @@ FileManager="*res://file_manager.tscn"
 
 window/size/viewport_width=800
 window/size/viewport_height=980
+window/size/initial_position_type=0
+window/size/resizable=false
 
 [dotnet]
 

@@ -238,7 +238,7 @@ offset_bottom = 87.0
 theme_override_colors/font_color = Color(0.2, 0.533333, 0.266667, 1)
 theme_override_fonts/font = ExtResource("1_n2nep")
 theme_override_font_sizes/font_size = 25
-text = "333"
+text = "0"
 horizontal_alignment = 1
 
 [node name="Apple" type="Sprite2D" parent="HBoxContainer/Apple_Panel"]
@@ -257,9 +257,9 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 20.0
-offset_top = 103.0
+offset_top = 79.0
 offset_right = 780.0
-offset_bottom = 123.0
+offset_bottom = 99.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -283,7 +283,7 @@ offset_bottom = 22.0
 theme_override_colors/font_color = Color(0, 0.643137, 0.968627, 1)
 theme_override_fonts/font = ExtResource("1_n2nep")
 theme_override_font_sizes/font_size = 18
-text = "1"
+text = "0"
 horizontal_alignment = 2
 autowrap_mode = 2
 

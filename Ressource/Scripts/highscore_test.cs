@@ -16,6 +16,7 @@ public partial class highscore_test : Node2D
 
       public void _on_button_add_Fruit(int Fruit_ID)
       {
+            GD.Print("Button Clicked - Add Fruit :" + Fruit_ID);
             scoreManager.Add_Score(Fruit_ID);
       }
       public void _on_button_SaveData()
@@ -25,5 +26,7 @@ public partial class highscore_test : Node2D
       public void _on_button_LoadData()
       {
             scoreManager.Score = fileManager.GetScoreData();
+            
+            scoreManager.LoadHighscore();
       }
 }

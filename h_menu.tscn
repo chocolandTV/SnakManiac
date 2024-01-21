@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ctpcjwj56qomf"]
+[gd_scene load_steps=17 format=3 uid="uid://ctpcjwj56qomf"]
 
 [ext_resource type="Script" path="res://Ressource/Scripts/H_Menu.cs" id="1_fx78u"]
 [ext_resource type="FontFile" uid="uid://be16ohuykcn1p" path="res://Ressource/Font/PoetsenOne-Regular.ttf" id="2_xc8ll"]
@@ -9,8 +9,17 @@
 [ext_resource type="Texture2D" uid="uid://dpb26wxvawgdn" path="res://Ressource/Controls.png" id="6_kvvnu"]
 [ext_resource type="Texture2D" uid="uid://dxixg1m8oqnac" path="res://Ressource/UI_Border.png" id="7_jbgdr"]
 [ext_resource type="Texture2D" uid="uid://byohbqcxmv2uc" path="res://Ressource/apple.png" id="8_sajja"]
+[ext_resource type="Script" path="res://Ressource/Scripts/HighscoreManager.cs" id="10_bcdm0"]
+[ext_resource type="Texture2D" uid="uid://cvw4d66bxn1mv" path="res://Ressource/Diamond.png" id="11_ks8n8"]
+[ext_resource type="Texture2D" uid="uid://dexwbddqr245" path="res://Ressource/Unicorn.png" id="12_82oo4"]
+[ext_resource type="Texture2D" uid="uid://d1h1xru1w0a8m" path="res://Ressource/Coin.png" id="13_8p343"]
+[ext_resource type="Texture2D" uid="uid://cc2j84f6q6i0c" path="res://Ressource/Cherry.png" id="14_xuvda"]
+[ext_resource type="Texture2D" uid="uid://cvpxnsxg5kqen" path="res://Ressource/updated.png" id="15_t8w06"]
 
-[node name="H_Menu" type="Control" node_paths=PackedStringArray("optionMenu", "HighscoreMenu", "GameOverMenu", "VolumeSlider", "SFXslider", "MusicSlider", "GameOverHighscoreValue", "button_start", "button_Resume", "PauseColorRect")]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_25r0h"]
+blend_mode = 1
+
+[node name="H_Menu" type="Control" node_paths=PackedStringArray("optionMenu", "HighscoreMenu", "highscoreManager", "GameOverMenu", "VolumeSlider", "SFXslider", "MusicSlider", "GameOverHighscoreValue", "button_start", "button_Resume", "PauseColorRect")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,11 +29,12 @@ grow_vertical = 2
 script = ExtResource("1_fx78u")
 optionMenu = NodePath("OptionPanel")
 HighscoreMenu = NodePath("HighscorePanel")
+highscoreManager = NodePath("HighscorePanel")
 GameOverMenu = NodePath("GameOverPanel")
 VolumeSlider = NodePath("OptionPanel/VBoxContainer/M_Volume_Panel/MasterSlider")
 SFXslider = NodePath("OptionPanel/VBoxContainer/S_Volume_Panel/SoundSlider")
 MusicSlider = NodePath("OptionPanel/VBoxContainer/Music_Volume_Panel/MusicSlider")
-GameOverHighscoreValue = NodePath("GameOverPanel/VBoxContainer/Panel/HighscoreValue")
+GameOverHighscoreValue = NodePath("GameOverPanel/VBoxContainer/GameOver_Panel/HighscoreValue")
 button_start = NodePath("MenuButtons/VBoxContainer/Button_Play")
 button_Resume = NodePath("MenuButtons/VBoxContainer/Button_Resume")
 PauseColorRect = NodePath("PauseColor")
@@ -39,7 +49,7 @@ color = Color(0, 0, 0, 1)
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 0
-offset_top = 128.0
+offset_top = 146.0
 offset_right = 807.0
 offset_bottom = 982.0
 texture = ExtResource("7_jbgdr")
@@ -64,6 +74,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="MenuButtons/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 0.533333, 0.266667, 1)
 theme_override_fonts/font = ExtResource("2_xc8ll")
 theme_override_font_sizes/font_size = 33
 text = "SnakManiac"
@@ -277,12 +288,6 @@ step = 0.001
 value = 0.5
 script = ExtResource("5_gnutd")
 
-[node name="HighscorePanel" type="MarginContainer" parent="."]
-visible = false
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
 [node name="GameOverPanel" type="MarginContainer" parent="."]
 visible = false
 layout_mode = 0
@@ -293,14 +298,14 @@ offset_bottom = 40.0
 layout_mode = 2
 
 [node name="ColorRect" type="ColorRect" parent="GameOverPanel/VBoxContainer"]
-custom_minimum_size = Vector2(800, 800)
+custom_minimum_size = Vector2(800, 980)
 layout_mode = 2
 color = Color(0, 0, 0, 0.67451)
 
-[node name="Panel" type="Panel" parent="GameOverPanel/VBoxContainer"]
+[node name="GameOver_Panel" type="Panel" parent="GameOverPanel/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="GameOverPanel/VBoxContainer/Panel"]
+[node name="Label" type="Label" parent="GameOverPanel/VBoxContainer/GameOver_Panel"]
 layout_mode = 2
 offset_left = 9.0
 offset_top = -604.0
@@ -311,16 +316,27 @@ theme_override_font_sizes/font_size = 40
 text = "Game Over"
 horizontal_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="GameOverPanel/VBoxContainer/Panel"]
+[node name="Header" type="Label" parent="GameOverPanel/VBoxContainer/GameOver_Panel"]
+offset_left = 7.0
+offset_top = -833.0
+offset_right = 807.0
+offset_bottom = -785.0
+theme_override_fonts/font = ExtResource("2_xc8ll")
+theme_override_font_sizes/font_size = 30
+text = "SnakManiac
+ Thanks for playing"
+horizontal_alignment = 1
+
+[node name="Logo" type="TextureRect" parent="GameOverPanel/VBoxContainer/GameOver_Panel"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 0
-offset_left = 357.0
-offset_top = -711.0
-offset_right = 457.0
-offset_bottom = -611.0
-texture = ExtResource("8_sajja")
+offset_left = 341.0
+offset_top = -765.0
+offset_right = 469.0
+offset_bottom = -637.0
+texture = ExtResource("3_ti14c")
 
-[node name="HighscoreText" type="Label" parent="GameOverPanel/VBoxContainer/Panel"]
+[node name="HighscoreText" type="Label" parent="GameOverPanel/VBoxContainer/GameOver_Panel"]
 layout_mode = 0
 offset_left = 187.0
 offset_top = -455.0
@@ -330,7 +346,7 @@ theme_override_fonts/font = ExtResource("2_xc8ll")
 theme_override_font_sizes/font_size = 30
 text = "Your Highscore : "
 
-[node name="HighscoreValue" type="Label" parent="GameOverPanel/VBoxContainer/Panel"]
+[node name="HighscoreValue" type="Label" parent="GameOverPanel/VBoxContainer/GameOver_Panel"]
 layout_mode = 0
 offset_left = 467.0
 offset_top = -461.0
@@ -340,45 +356,337 @@ theme_override_fonts/font = ExtResource("2_xc8ll")
 theme_override_font_sizes/font_size = 40
 text = "33"
 
-[node name="ColorRect2" type="ColorRect" parent="GameOverPanel/VBoxContainer/Panel"]
+[node name="ColorRect2" type="ColorRect" parent="GameOverPanel/VBoxContainer/GameOver_Panel"]
 custom_minimum_size = Vector2(220, 75)
 layout_mode = 0
-offset_left = 404.0
-offset_top = -281.0
-offset_right = 624.0
-offset_bottom = -206.0
+offset_left = 406.0
+offset_top = -373.0
+offset_right = 626.0
+offset_bottom = -298.0
 color = Color(0, 0.301961, 0, 1)
 
-[node name="ColorRect" type="ColorRect" parent="GameOverPanel/VBoxContainer/Panel"]
+[node name="ColorRect" type="ColorRect" parent="GameOverPanel/VBoxContainer/GameOver_Panel"]
 custom_minimum_size = Vector2(220, 75)
 layout_mode = 0
-offset_left = 138.0
-offset_top = -281.0
-offset_right = 358.0
-offset_bottom = -206.0
+offset_left = 140.0
+offset_top = -373.0
+offset_right = 360.0
+offset_bottom = -298.0
 color = Color(0, 0.301961, 0, 1)
 
-[node name="Button_Restart" type="Button" parent="GameOverPanel/VBoxContainer/Panel"]
+[node name="Button_Restart" type="Button" parent="GameOverPanel/VBoxContainer/GameOver_Panel"]
 layout_mode = 0
-offset_left = 170.0
-offset_top = -272.0
-offset_right = 316.0
-offset_bottom = -216.0
+offset_left = 172.0
+offset_top = -364.0
+offset_right = 318.0
+offset_bottom = -308.0
 theme_override_fonts/font = ExtResource("2_xc8ll")
 theme_override_font_sizes/font_size = 40
 text = "Restart"
 flat = true
 
-[node name="Button_Quit" type="Button" parent="GameOverPanel/VBoxContainer/Panel"]
+[node name="Button_Quit" type="Button" parent="GameOverPanel/VBoxContainer/GameOver_Panel"]
 layout_mode = 0
-offset_left = 439.0
-offset_top = -272.0
-offset_right = 585.0
-offset_bottom = -216.0
+offset_left = 441.0
+offset_top = -364.0
+offset_right = 587.0
+offset_bottom = -308.0
 theme_override_fonts/font = ExtResource("2_xc8ll")
 theme_override_font_sizes/font_size = 40
 text = "Quit"
 flat = true
+
+[node name="HighscorePanel" type="MarginContainer" parent="." node_paths=PackedStringArray("v_Score_All", "v_Score_Apple", "v_Score_Cherry", "v_Score_Coin", "v_Score_Unicorn", "v_Score_Diamond", "separators", "panels", "updatedScore")]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("10_bcdm0")
+v_Score_All = NodePath("Panel/Score_All")
+v_Score_Apple = NodePath("Panel/HBoxContainer/Apple_Panel/Score_Apple")
+v_Score_Cherry = NodePath("Panel/HBoxContainer/Cherry_Panel/Score_Cherry")
+v_Score_Coin = NodePath("Panel/HBoxContainer/Coin_Panel/Score_Coin")
+v_Score_Unicorn = NodePath("Panel/HBoxContainer/Unicorn_Panel/Score_Unicorn")
+v_Score_Diamond = NodePath("Panel/HBoxContainer/Diamond_Panel/Score_Diamond")
+separators = [NodePath("Panel/HBoxContainer/Cherry_Sep"), NodePath("Panel/HBoxContainer/Cherry_Sep"), NodePath("Panel/HBoxContainer/Cherry_Sep"), NodePath("Panel/HBoxContainer/Coin_Sep"), NodePath("Panel/HBoxContainer/Unicorn_Sep"), NodePath("Panel/HBoxContainer/Diamond_Sep")]
+panels = [NodePath("Panel/HBoxContainer/Cherry_Panel"), NodePath("Panel/HBoxContainer/Cherry_Panel"), NodePath("Panel/HBoxContainer/Cherry_Panel"), NodePath("Panel/HBoxContainer/Coin_Panel"), NodePath("Panel/HBoxContainer/Unicorn_Panel"), NodePath("Panel/HBoxContainer/Diamond_Panel")]
+updatedScore = NodePath("UpdatedScore")
+
+[node name="Panel" type="Panel" parent="HighscorePanel"]
+layout_mode = 2
+
+[node name="HighestScore" type="Label" parent="HighscorePanel/Panel"]
+layout_mode = 2
+offset_left = -1.0
+offset_top = 713.0
+offset_right = 799.0
+offset_bottom = 761.0
+theme_override_fonts/font = ExtResource("2_xc8ll")
+theme_override_font_sizes/font_size = 40
+text = "Highest Score :"
+horizontal_alignment = 1
+
+[node name="Score_All" type="Label" parent="HighscorePanel/Panel"]
+layout_mode = 2
+offset_left = 660.0
+offset_top = 715.0
+offset_right = 761.0
+offset_bottom = 763.0
+theme_override_colors/font_color = Color(0, 0.643137, 0.968627, 1)
+theme_override_fonts/font = ExtResource("2_xc8ll")
+theme_override_font_sizes/font_size = 40
+text = "0"
+horizontal_alignment = 2
+autowrap_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HighscorePanel/Panel"]
+custom_minimum_size = Vector2(800, 100)
+layout_mode = 2
+offset_top = 775.0
+offset_right = 800.0
+offset_bottom = 875.0
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Diamond_Panel" type="Panel" parent="HighscorePanel/Panel/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(130, 80)
+layout_mode = 2
+
+[node name="Header_Diamond" type="Label" parent="HighscorePanel/Panel/HBoxContainer/Diamond_Panel"]
+offset_left = 6.0
+offset_top = -3.0
+offset_right = 124.0
+offset_bottom = 45.0
+theme_override_colors/font_color = Color(0, 0.643137, 0.968627, 1)
+theme_override_fonts/font = ExtResource("2_xc8ll")
+theme_override_font_sizes/font_size = 21
+text = "Diamonds"
+horizontal_alignment = 1
+
+[node name="Score_Diamond" type="Label" parent="HighscorePanel/Panel/HBoxContainer/Diamond_Panel"]
+layout_mode = 0
+offset_left = 61.0
+offset_top = 37.0
+offset_right = 115.0
+offset_bottom = 85.0
+theme_override_colors/font_color = Color(0, 0.643137, 0.968627, 1)
+theme_override_fonts/font = ExtResource("2_xc8ll")
+theme_override_font_sizes/font_size = 25
+text = "333"
+horizontal_alignment = 1
+
+[node name="Diamonds" type="Sprite2D" parent="HighscorePanel/Panel/HBoxContainer/Diamond_Panel"]
+position = Vector2(35, 54)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("11_ks8n8")
+
+[node name="Panel" type="Panel" parent="HighscorePanel/Panel/HBoxContainer/Diamond_Panel"]
+material = SubResource("CanvasItemMaterial_25r0h")
+layout_mode = 0
+offset_right = 130.0
+offset_bottom = 20.0
+
+[node name="Diamond_Sep" type="VSeparator" parent="HighscorePanel/Panel/HBoxContainer"]
+visible = false
+modulate = Color(0.2, 0.533333, 0.266667, 1)
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="Unicorn_Panel" type="Panel" parent="HighscorePanel/Panel/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(130, 80)
+layout_mode = 2
+
+[node name="Header_Unicorn" type="Label" parent="HighscorePanel/Panel/HBoxContainer/Unicorn_Panel"]
+offset_left = 15.0
+offset_top = -2.0
+offset_right = 120.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0.741176, 0, 0.764706, 1)
+theme_override_fonts/font = ExtResource("2_xc8ll")
+theme_override_font_sizes/font_size = 21
+text = "Unicorns"
+horizontal_alignment = 1
+
+[node name="Score_Unicorn" type="Label" parent="HighscorePanel/Panel/HBoxContainer/Unicorn_Panel"]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 41.0
+offset_right = 114.0
+offset_bottom = 89.0
+theme_override_colors/font_color = Color(0.741176, 0, 0.764706, 1)
+theme_override_fonts/font = ExtResource("2_xc8ll")
+theme_override_font_sizes/font_size = 25
+text = "333"
+horizontal_alignment = 1
+
+[node name="Unicorn" type="Sprite2D" parent="HighscorePanel/Panel/HBoxContainer/Unicorn_Panel"]
+position = Vector2(36, 51)
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("12_82oo4")
+
+[node name="Panel" type="Panel" parent="HighscorePanel/Panel/HBoxContainer/Unicorn_Panel"]
+material = SubResource("CanvasItemMaterial_25r0h")
+layout_mode = 0
+offset_right = 130.0
+offset_bottom = 20.0
+
+[node name="Unicorn_Sep" type="VSeparator" parent="HighscorePanel/Panel/HBoxContainer"]
+visible = false
+modulate = Color(0.2, 0.533333, 0.266667, 1)
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="Coin_Panel" type="Panel" parent="HighscorePanel/Panel/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(130, 80)
+layout_mode = 2
+
+[node name="Header_Coin" type="Label" parent="HighscorePanel/Panel/HBoxContainer/Coin_Panel"]
+offset_left = 26.0
+offset_top = -2.0
+offset_right = 108.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(1, 0.780392, 0, 1)
+theme_override_fonts/font = ExtResource("2_xc8ll")
+theme_override_font_sizes/font_size = 21
+text = "Coins"
+horizontal_alignment = 1
+
+[node name="Score_Coin" type="Label" parent="HighscorePanel/Panel/HBoxContainer/Coin_Panel"]
+layout_mode = 0
+offset_left = 55.0
+offset_top = 36.0
+offset_right = 109.0
+offset_bottom = 84.0
+theme_override_colors/font_color = Color(1, 0.780392, 0, 1)
+theme_override_fonts/font = ExtResource("2_xc8ll")
+theme_override_font_sizes/font_size = 25
+text = "333"
+horizontal_alignment = 1
+
+[node name="Coin" type="Sprite2D" parent="HighscorePanel/Panel/HBoxContainer/Coin_Panel"]
+position = Vector2(35, 52)
+texture = ExtResource("13_8p343")
+
+[node name="Panel" type="Panel" parent="HighscorePanel/Panel/HBoxContainer/Coin_Panel"]
+material = SubResource("CanvasItemMaterial_25r0h")
+layout_mode = 0
+offset_right = 130.0
+offset_bottom = 20.0
+
+[node name="Coin_Sep" type="VSeparator" parent="HighscorePanel/Panel/HBoxContainer"]
+visible = false
+modulate = Color(0.2, 0.533333, 0.266667, 1)
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="Cherry_Panel" type="Panel" parent="HighscorePanel/Panel/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(130, 80)
+layout_mode = 2
+
+[node name="Header_Cherry" type="Label" parent="HighscorePanel/Panel/HBoxContainer/Cherry_Panel"]
+offset_left = 19.0
+offset_top = -1.0
+offset_right = 118.0
+offset_bottom = 47.0
+theme_override_colors/font_color = Color(0.843137, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_xc8ll")
+theme_override_font_sizes/font_size = 21
+text = "Cherries"
+horizontal_alignment = 1
+
+[node name="Score_Cherry" type="Label" parent="HighscorePanel/Panel/HBoxContainer/Cherry_Panel"]
+layout_mode = 0
+offset_left = 54.0
+offset_top = 38.0
+offset_right = 108.0
+offset_bottom = 86.0
+theme_override_colors/font_color = Color(0.843137, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_xc8ll")
+theme_override_font_sizes/font_size = 25
+text = "333"
+horizontal_alignment = 1
+
+[node name="Cherry" type="Sprite2D" parent="HighscorePanel/Panel/HBoxContainer/Cherry_Panel"]
+position = Vector2(33, 54)
+texture = ExtResource("14_xuvda")
+
+[node name="Panel" type="Panel" parent="HighscorePanel/Panel/HBoxContainer/Cherry_Panel"]
+material = SubResource("CanvasItemMaterial_25r0h")
+layout_mode = 0
+offset_right = 130.0
+offset_bottom = 20.0
+
+[node name="Cherry_Sep" type="VSeparator" parent="HighscorePanel/Panel/HBoxContainer"]
+visible = false
+modulate = Color(0.2, 0.533333, 0.266667, 1)
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="Apple_Panel" type="Panel" parent="HighscorePanel/Panel/HBoxContainer"]
+custom_minimum_size = Vector2(130, 80)
+layout_mode = 2
+
+[node name="Header_Apple" type="Label" parent="HighscorePanel/Panel/HBoxContainer/Apple_Panel"]
+offset_left = 28.0
+offset_top = -2.0
+offset_right = 106.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0.2, 0.533333, 0.266667, 1)
+theme_override_fonts/font = ExtResource("2_xc8ll")
+theme_override_font_sizes/font_size = 21
+text = "Apples"
+horizontal_alignment = 1
+
+[node name="Score_Apple" type="Label" parent="HighscorePanel/Panel/HBoxContainer/Apple_Panel"]
+layout_mode = 0
+offset_left = 57.0
+offset_top = 39.0
+offset_right = 111.0
+offset_bottom = 87.0
+theme_override_colors/font_color = Color(0.2, 0.533333, 0.266667, 1)
+theme_override_fonts/font = ExtResource("2_xc8ll")
+theme_override_font_sizes/font_size = 25
+text = "0"
+horizontal_alignment = 1
+
+[node name="Apple" type="Sprite2D" parent="HighscorePanel/Panel/HBoxContainer/Apple_Panel"]
+position = Vector2(35, 53)
+texture = ExtResource("8_sajja")
+
+[node name="Panel" type="Panel" parent="HighscorePanel/Panel/HBoxContainer/Apple_Panel"]
+material = SubResource("CanvasItemMaterial_25r0h")
+layout_mode = 0
+offset_right = 130.0
+offset_bottom = 20.0
+
+[node name="UpdatedScore" type="Panel" parent="HighscorePanel"]
+visible = false
+layout_mode = 2
+
+[node name="text" type="Label" parent="HighscorePanel/UpdatedScore"]
+layout_mode = 0
+offset_left = 94.0
+offset_top = 720.0
+offset_right = 236.0
+offset_bottom = 760.0
+theme_override_colors/font_color = Color(0, 0.643137, 0.968627, 1)
+theme_override_fonts/font = ExtResource("2_xc8ll")
+theme_override_font_sizes/font_size = 25
+text = "Updated!"
+horizontal_alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="HighscorePanel/UpdatedScore"]
+layout_mode = 0
+offset_left = 93.0001
+offset_top = 717.0
+offset_right = 193.0
+offset_bottom = 817.0
+scale = Vector2(0.365, 0.365)
+texture = ExtResource("15_t8w06")
 
 [connection signal="pressed" from="MenuButtons/VBoxContainer/Button_Resume" to="." method="_on_Resume_pressed"]
 [connection signal="pressed" from="MenuButtons/VBoxContainer/Button_Play" to="." method="_on_start_pressed"]
@@ -387,5 +695,5 @@ flat = true
 [connection signal="value_changed" from="OptionPanel/VBoxContainer/M_Volume_Panel/MasterSlider" to="OptionPanel/VBoxContainer/M_Volume_Panel/MasterSlider" method="_on_value_changed"]
 [connection signal="value_changed" from="OptionPanel/VBoxContainer/S_Volume_Panel/SoundSlider" to="OptionPanel/VBoxContainer/S_Volume_Panel/SoundSlider" method="_on_value_changed"]
 [connection signal="value_changed" from="OptionPanel/VBoxContainer/Music_Volume_Panel/MusicSlider" to="OptionPanel/VBoxContainer/Music_Volume_Panel/MusicSlider" method="_on_value_changed"]
-[connection signal="pressed" from="GameOverPanel/VBoxContainer/Panel/Button_Restart" to="." method="_on_Restart_pressed"]
-[connection signal="pressed" from="GameOverPanel/VBoxContainer/Panel/Button_Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="GameOverPanel/VBoxContainer/GameOver_Panel/Button_Restart" to="." method="_on_Restart_pressed"]
+[connection signal="pressed" from="GameOverPanel/VBoxContainer/GameOver_Panel/Button_Quit" to="." method="_on_quit_pressed"]
