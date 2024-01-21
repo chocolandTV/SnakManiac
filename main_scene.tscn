@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://ba8sjv1bxg4ex"]
+[gd_scene load_steps=19 format=3 uid="uid://ba8sjv1bxg4ex"]
 
 [ext_resource type="Texture2D" uid="uid://blyonnvrx2dg4" path="res://Ressource/snakeSprite.png" id="1_be6w0"]
 [ext_resource type="Texture2D" uid="uid://u7d8x2vrc2i0" path="res://Ressource/grass.png" id="1_dotqa"]
@@ -6,12 +6,14 @@
 [ext_resource type="Texture2D" uid="uid://byohbqcxmv2uc" path="res://Ressource/apple.png" id="2_xxr7o"]
 [ext_resource type="Script" path="res://Ressource/Scripts/GameBoard.cs" id="3_dmf3g"]
 [ext_resource type="Script" path="res://Ressource/Scripts/InputManager.cs" id="4_ksoxy"]
+[ext_resource type="PackedScene" uid="uid://cvwraxid04yf" path="res://Ressource/particle.tscn" id="6_dgto7"]
 [ext_resource type="PackedScene" uid="uid://bpjfri83wmryg" path="res://score.tscn" id="6_ehukk"]
 [ext_resource type="AudioStream" uid="uid://dbpe5pba1alm4" path="res://Ressource/Sound/Normal.mp3" id="7_1kfrv"]
 [ext_resource type="AudioStream" uid="uid://dkxuapri0i7fs" path="res://Ressource/Sound/crunch.wav" id="7_1req0"]
 [ext_resource type="AudioStream" uid="uid://ci2p5aktilphj" path="res://Ressource/Sound/speedy(1).mp3" id="8_1fm2d"]
 [ext_resource type="PackedScene" uid="uid://ctpcjwj56qomf" path="res://h_menu.tscn" id="9_8b88t"]
 [ext_resource type="AudioStream" uid="uid://dlxysucutefg7" path="res://Ressource/Sound/FinalBreeze.mp3" id="9_ayc51"]
+[ext_resource type="Script" path="res://Ressource/Scripts/BackgroundMusic.cs" id="11_pn0pj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fx0yc"]
 resource_name = "Snake"
@@ -71,18 +73,22 @@ grow_vertical = 2
 texture = ExtResource("1_dotqa")
 stretch_mode = 1
 
-[node name="GameBoard" type="TileMap" parent="." node_paths=PackedStringArray("audioPlayer")]
+[node name="GameBoard" type="TileMap" parent="." node_paths=PackedStringArray("particle", "audioPlayer")]
 tile_set = SubResource("TileSet_bf581")
 rendering_quadrant_size = 20
 format = 2
 layer_0/tile_data = PackedInt32Array(65536, 458752, 1)
 script = ExtResource("3_dmf3g")
+particle = NodePath("Particle")
 BoardSize = 19
 audioPlayer = NodePath("../CrunchSound")
 
 [node name="Game_Snake_Tick" type="Timer" parent="GameBoard"]
 wait_time = 0.1
 autostart = true
+
+[node name="Particle" parent="GameBoard" instance=ExtResource("6_dgto7")]
+position = Vector2(5, 0)
 
 [node name="InputManager" type="Node" parent="." node_paths=PackedStringArray("gameBoard", "gameManager")]
 script = ExtResource("4_ksoxy")
@@ -98,6 +104,7 @@ process_priority = 1
 stream = SubResource("AudioStreamRandomizer_e10hh")
 autoplay = true
 bus = &"Music"
+script = ExtResource("11_pn0pj")
 
 [node name="CrunchSound" type="AudioStreamPlayer2D" parent="."]
 process_priority = -1
@@ -109,3 +116,4 @@ bus = &"SFX"
 [node name="H_Menu" parent="." instance=ExtResource("9_8b88t")]
 
 [connection signal="timeout" from="GameBoard/Game_Snake_Tick" to="GameBoard" method="On_game_snake_tick_timeout"]
+[connection signal="finished" from="BackgroundMusic" to="BackgroundMusic" method="_on_background_music_finished"]

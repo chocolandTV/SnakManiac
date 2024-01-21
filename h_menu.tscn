@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://ctpcjwj56qomf"]
+[gd_scene load_steps=10 format=3 uid="uid://ctpcjwj56qomf"]
 
 [ext_resource type="Script" path="res://Ressource/Scripts/H_Menu.cs" id="1_fx78u"]
 [ext_resource type="FontFile" uid="uid://be16ohuykcn1p" path="res://Ressource/Font/PoetsenOne-Regular.ttf" id="2_xc8ll"]
+[ext_resource type="Texture2D" uid="uid://ktmx150bfk70" path="res://Ressource/LOGO2.png" id="3_ti14c"]
 [ext_resource type="Script" path="res://Ressource/Scripts/MasterSlider.cs" id="3_u7uf4"]
 [ext_resource type="Script" path="res://Ressource/Scripts/SoundSlider.cs" id="4_ucor2"]
 [ext_resource type="Script" path="res://Ressource/Scripts/MusicSlider.cs" id="5_gnutd"]
@@ -56,6 +57,13 @@ theme_override_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MenuButtons"]
 layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MenuButtons/VBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("3_ti14c")
+stretch_mode = 2
 
 [node name="Button_Resume" type="Button" parent="MenuButtons/VBoxContainer"]
 visible = false

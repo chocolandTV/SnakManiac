@@ -6,6 +6,8 @@ using System.Linq;
 public partial class GameBoard : TileMap
 {
 	[Export]
+	Node2D particle;
+	[Export]
 	public int BoardSize;
 	[Export]
 	public AudioStreamPlayer2D audioPlayer;
@@ -109,6 +111,9 @@ public partial class GameBoard : TileMap
 	{
 		apple_Pos = get_New_Apple_Pos();
 		SetCell(0, apple_Pos, Apple, new Vector2I(0, 0));
+		Vector2 particle_position = apple_Pos*40;
+    		
+    		particle.Position = particle_position;
 	}
 	private void Draw_Snake()
 	{

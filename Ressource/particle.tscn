@@ -1,0 +1,65 @@
+[gd_scene load_steps=9 format=3 uid="uid://cvwraxid04yf"]
+
+[ext_resource type="Texture2D" uid="uid://spvnhokd4gdv" path="res://Ressource/Particle.png" id="1_pbum4"]
+
+[sub_resource type="Curve" id="Curve_80a6y"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.973333, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_havsx"]
+curve = SubResource("Curve_80a6y")
+
+[sub_resource type="Gradient" id="Gradient_kxlto"]
+offsets = PackedFloat32Array(0, 0.483607, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ktb2p"]
+gradient = SubResource("Gradient_kxlto")
+
+[sub_resource type="Curve" id="Curve_iymt8"]
+_data = [Vector2(0, 0.021978), 0.0, 0.0, 0, 0, Vector2(0.266667, 1), -0.206043, 0.0, 0, 0, Vector2(0.98, 0.098901), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_yaqsa"]
+curve = SubResource("Curve_iymt8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6ca61"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+velocity_pivot = Vector3(4, 4, 0)
+spread = 39.013
+flatness = 1.0
+initial_velocity_min = 30.0
+initial_velocity_max = 30.0
+orbit_velocity_min = 0.5
+orbit_velocity_max = 0.5
+gravity = Vector3(4.86, 0, 0)
+linear_accel_min = 63.37
+linear_accel_max = 63.37
+radial_accel_min = 3.65
+radial_accel_max = 3.65
+tangential_accel_min = 13.6
+tangential_accel_max = 13.6
+damping_min = 0.38
+damping_max = 0.425
+scale_min = 0.0
+scale_curve = SubResource("CurveTexture_yaqsa")
+color_initial_ramp = SubResource("GradientTexture1D_ktb2p")
+alpha_curve = SubResource("CurveTexture_havsx")
+turbulence_enabled = true
+turbulence_noise_strength = 7.11
+turbulence_noise_speed = Vector3(0, -40, 0)
+turbulence_influence_max = 0.384
+
+[node name="Particle" type="Node2D"]
+
+[node name="CPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(20, 20)
+amount = 15
+process_material = SubResource("ParticleProcessMaterial_6ca61")
+texture = ExtResource("1_pbum4")
+explosiveness = 1.0
+randomness = 1.0
+fixed_fps = 0
+local_coords = true
+draw_order = 0
