@@ -122,6 +122,7 @@ audioPlayer = NodePath("../CrunchSound")
 scoreManager = NodePath("../Score")
 
 [node name="Game_Snake_Tick" type="Timer" parent="GameBoard"]
+process_priority = 1
 wait_time = 0.1
 autostart = true
 
@@ -150,6 +151,7 @@ stream = ExtResource("7_1req0")
 pitch_scale = 1.15
 max_polyphony = 3
 bus = &"SFX"
+area_mask = 2
 
 [node name="H_Menu" parent="." instance=ExtResource("9_8b88t")]
 

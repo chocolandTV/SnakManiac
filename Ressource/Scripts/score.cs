@@ -13,9 +13,13 @@ public partial class score : Node2D
     public Panel[] panels;
     public bool[] vPanel = new bool[6] { false, false, false, false, false, false };
     public int[] Score;
+    private FileManager fileManager;
 
     public override void _Ready()
     {
+        fileManager = GetNode<FileManager>("/root/FileManager");
+        Score = fileManager.GetScoreData();
+        LoadHighscore();
         Clear_Score();
     }
     public void Clear_Score()

@@ -97,7 +97,10 @@ public partial class H_Menu : Control
     {
         showHighscore = !showHighscore;
         if (showHighscore)
+        {
             HighscoreMenu.Show();
+            highscoreManager.LoadHighscore();
+        }
         else
             HighscoreMenu.Hide();
     }

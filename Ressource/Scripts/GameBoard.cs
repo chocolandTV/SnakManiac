@@ -13,6 +13,7 @@ public partial class GameBoard : TileMap
 	public AudioStreamPlayer2D audioPlayer;
 	[Export]
 	public score scoreManager;
+	const int CellSize = 40;
 	const int Snake = 0;
 	const int Apple = 1;
 	const int Cherry = 2;
@@ -110,28 +111,31 @@ public partial class GameBoard : TileMap
 	}
 	private int GetRandomFruit()
 	{
-		int fruit = 1;
+		
 		int x = randi.RandiRange(0, 100);
 		if (x < 11 + scoreManager.Score[1])
 		{// CHERRY CHANCE 10% over 25
 			int y = randi.RandiRange(0, 100);
+			GD.Print("Coin - Rolled: " + y + "Chance:" + (11+scoreManager.Score[2]));
 			if (y < 11 + scoreManager.Score[2])
 			{// COIN CHANCE 1% over 50 
 				int z = randi.RandiRange(0, 100);
+				GD.Print("Unicorn - Rolled: " + z + "Chance:" + (11+scoreManager.Score[3]));
 				if (Snake_body.Count > 50 && z < 11+ scoreManager.Score[3])
 				{// UNICORN CHANCE 0,1% over 100
 					int v = randi.RandiRange(0, 100);
+					GD.Print("Diamond - Rolled: " + v + "Chance:" + (11+scoreManager.Score[3]));
 					if (Snake_body.Count > 100 && v < 11 + scoreManager.Score[4])
 					{//DIAMOND CHANCE 0,01% over 200
-						fruit = Diamond;
+						return Diamond;
 					}
-					fruit = Unicorn;
+					return Unicorn;
 				}
-				fruit = Coin;
+				return Coin;
 			}
-			fruit = Cherry;
+			return Cherry;
 		}
-		return fruit;
+		return Apple;
 	}
 	private Vector2I get_New_Apple_Pos()
 	{
@@ -151,7 +155,7 @@ public partial class GameBoard : TileMap
 		fruit_Pos = get_New_Apple_Pos();
 		fruit_ID = GetRandomFruit();
 		SetCell(0, fruit_Pos, fruit_ID, new Vector2I(0, 0));
-		Vector2 particle_position = fruit_Pos * 40;
+		Vector2 particle_position = fruit_Pos * CellSize;
 
 		particle.Position = particle_position;
 	}
@@ -163,6 +167,17 @@ public partial class GameBoard : TileMap
 		for (int i = 1; i < Snake_body.Count; i++)
 		{
 			Vector2I current_Direction = Snake_body[i - 1] - Snake_body[i];
+			if(current_Direction.X > 1 || current_Direction.X < -1)
+			{
+				SetCell(0, Snake_body[i], Snake, _snake_mid[new Vector2I(1, 0)]);
+				return;
+			}
+			if(current_Direction.Y > 1 || current_Direction.Y < -1)
+			{
+				SetCell(0, Snake_body[i], Snake, _snake_mid[new Vector2I(0, 1)]);
+				return;
+			}
+			
 			//if last index of snake_body
 			if (i == Snake_body.Count - 1)
 			{
@@ -245,14 +260,27 @@ public partial class GameBoard : TileMap
 	{
 		
 		// Snake Leaves the screen -> turn right
-		if (Snake_body[0].X > BoardSize)
+		if (Snake_body[0].X > BoardSize){
+			SetCell(0, Snake_body[0], Snake, new Vector2I(7, 1));
 			Snake_body[0] = new Vector2I(0,Snake_body[0].Y);
-		if (Snake_body[0].X < 0)
+			Check_Fruit_Eaten();
+			
+		}
+		if (Snake_body[0].X < 0){
+			SetCell(0, Snake_body[0], Snake, new Vector2I(7, 1));
 			Snake_body[0] = new Vector2I(19,Snake_body[0].Y);
-		if (Snake_body[0].Y > BoardSize)
+			Check_Fruit_Eaten();
+		}
+		if (Snake_body[0].Y > BoardSize){
+			SetCell(0, Snake_body[0], Snake, new Vector2I(7, 1));
 			Snake_body[0] = new Vector2I(Snake_body[0].X, 0);
-		if (Snake_body[0].Y < 0)
+			Check_Fruit_Eaten();
+		}
+		if (Snake_body[0].Y < 0){
+			SetCell(0, Snake_body[0], Snake, new Vector2I(7, 1));
 			Snake_body[0] = new Vector2I(Snake_body[0].X, 19);
+			Check_Fruit_Eaten();
+		}
 		// Snake bites its own body
 		for (int i = 1; i < Snake_body.Count; i++)
 		{
@@ -278,7 +306,10 @@ public partial class GameBoard : TileMap
 	}
 	public override void _Process(double delta)
 	{
-		Check_Collission();
-		Snake_Direction = Input_Direction;
+		if (isRunning)
+		{
+			Check_Collission();
+			Snake_Direction = Input_Direction;
+		}
 	}
 }

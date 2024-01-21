@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://ctpcjwj56qomf"]
+[gd_scene load_steps=18 format=3 uid="uid://ctpcjwj56qomf"]
 
 [ext_resource type="Script" path="res://Ressource/Scripts/H_Menu.cs" id="1_fx78u"]
 [ext_resource type="FontFile" uid="uid://be16ohuykcn1p" path="res://Ressource/Font/PoetsenOne-Regular.ttf" id="2_xc8ll"]
@@ -15,6 +15,8 @@
 [ext_resource type="Texture2D" uid="uid://d1h1xru1w0a8m" path="res://Ressource/Coin.png" id="13_8p343"]
 [ext_resource type="Texture2D" uid="uid://cc2j84f6q6i0c" path="res://Ressource/Cherry.png" id="14_xuvda"]
 [ext_resource type="Texture2D" uid="uid://cvpxnsxg5kqen" path="res://Ressource/updated.png" id="15_t8w06"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i68t5"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_25r0h"]
 blend_mode = 1
@@ -44,7 +46,7 @@ visible = false
 custom_minimum_size = Vector2(800, 800)
 layout_mode = 0
 offset_right = 800.0
-offset_bottom = 800.0
+offset_bottom = 976.0
 color = Color(0, 0, 0, 1)
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -100,11 +102,17 @@ theme_override_fonts/font = ExtResource("2_xc8ll")
 theme_override_font_sizes/font_size = 33
 text = "Play"
 
-[node name="Button_Option" type="Button" parent="MenuButtons/VBoxContainer"]
+[node name="Button_Settings" type="Button" parent="MenuButtons/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_xc8ll")
 theme_override_font_sizes/font_size = 33
-text = "Options"
+text = "Settings"
+
+[node name="Button_Highscore" type="Button" parent="MenuButtons/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_xc8ll")
+theme_override_font_sizes/font_size = 33
+text = "Highscore"
 
 [node name="Button_Quit" type="Button" parent="MenuButtons/VBoxContainer"]
 layout_mode = 2
@@ -120,6 +128,19 @@ offset_left = 200.0
 offset_top = 88.0
 offset_right = 800.0
 offset_bottom = 688.0
+
+[node name="Panel" type="Panel" parent="OptionPanel"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_i68t5")
+
+[node name="ColorRect" type="ColorRect" parent="OptionPanel/Panel"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+offset_left = 79.0
+offset_top = 153.0
+offset_right = 579.0
+offset_bottom = 753.0
+color = Color(0.168627, 0.168627, 0.168627, 1)
 
 [node name="VBoxContainer_Control" type="VBoxContainer" parent="OptionPanel"]
 layout_mode = 2
@@ -415,6 +436,15 @@ updatedScore = NodePath("UpdatedScore")
 [node name="Panel" type="Panel" parent="HighscorePanel"]
 layout_mode = 2
 
+[node name="ColorRect" type="ColorRect" parent="HighscorePanel/Panel"]
+custom_minimum_size = Vector2(750, 200)
+layout_mode = 0
+offset_left = 28.0
+offset_top = 715.0
+offset_right = 778.0
+offset_bottom = 915.0
+color = Color(0.219608, 0.219608, 0.219608, 1)
+
 [node name="HighestScore" type="Label" parent="HighscorePanel/Panel"]
 layout_mode = 2
 offset_left = -1.0
@@ -490,7 +520,7 @@ offset_bottom = 20.0
 [node name="Diamond_Sep" type="VSeparator" parent="HighscorePanel/Panel/HBoxContainer"]
 visible = false
 modulate = Color(0.2, 0.533333, 0.266667, 1)
-custom_minimum_size = Vector2(20, 0)
+custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
 [node name="Unicorn_Panel" type="Panel" parent="HighscorePanel/Panel/HBoxContainer"]
@@ -535,7 +565,7 @@ offset_bottom = 20.0
 [node name="Unicorn_Sep" type="VSeparator" parent="HighscorePanel/Panel/HBoxContainer"]
 visible = false
 modulate = Color(0.2, 0.533333, 0.266667, 1)
-custom_minimum_size = Vector2(20, 0)
+custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
 [node name="Coin_Panel" type="Panel" parent="HighscorePanel/Panel/HBoxContainer"]
@@ -579,7 +609,7 @@ offset_bottom = 20.0
 [node name="Coin_Sep" type="VSeparator" parent="HighscorePanel/Panel/HBoxContainer"]
 visible = false
 modulate = Color(0.2, 0.533333, 0.266667, 1)
-custom_minimum_size = Vector2(20, 0)
+custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
 [node name="Cherry_Panel" type="Panel" parent="HighscorePanel/Panel/HBoxContainer"]
@@ -623,7 +653,7 @@ offset_bottom = 20.0
 [node name="Cherry_Sep" type="VSeparator" parent="HighscorePanel/Panel/HBoxContainer"]
 visible = false
 modulate = Color(0.2, 0.533333, 0.266667, 1)
-custom_minimum_size = Vector2(20, 0)
+custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
 [node name="Apple_Panel" type="Panel" parent="HighscorePanel/Panel/HBoxContainer"]
@@ -690,7 +720,8 @@ texture = ExtResource("15_t8w06")
 
 [connection signal="pressed" from="MenuButtons/VBoxContainer/Button_Resume" to="." method="_on_Resume_pressed"]
 [connection signal="pressed" from="MenuButtons/VBoxContainer/Button_Play" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="MenuButtons/VBoxContainer/Button_Option" to="." method="_on_option_pressed"]
+[connection signal="pressed" from="MenuButtons/VBoxContainer/Button_Settings" to="." method="_on_option_pressed"]
+[connection signal="pressed" from="MenuButtons/VBoxContainer/Button_Highscore" to="." method="_on_highscore_pressed"]
 [connection signal="pressed" from="MenuButtons/VBoxContainer/Button_Quit" to="." method="_on_quit_pressed"]
 [connection signal="value_changed" from="OptionPanel/VBoxContainer/M_Volume_Panel/MasterSlider" to="OptionPanel/VBoxContainer/M_Volume_Panel/MasterSlider" method="_on_value_changed"]
 [connection signal="value_changed" from="OptionPanel/VBoxContainer/S_Volume_Panel/SoundSlider" to="OptionPanel/VBoxContainer/S_Volume_Panel/SoundSlider" method="_on_value_changed"]
