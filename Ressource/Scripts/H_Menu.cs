@@ -24,9 +24,9 @@ public partial class H_Menu : Control
     Button button_start, button_Resume;
     [Export]
     ColorRect PauseColorRect;
-
-
-
+    // EXPORT GAMEBOARD 
+    [Export]
+    GameBoard gameBoard;
     private bool showOptions = false;
     private bool showHighscore = false;
     private GameManager gameManager;
@@ -107,5 +107,13 @@ public partial class H_Menu : Control
     public void _on_quit_pressed()
     {
         GetTree().Quit();
+    }
+    public void _on_optionMenu_Select_Snake(int id)
+    {
+        gameBoard.ChangeSnakeSkin(id);
+    }
+    public void _on_optionMenu_Select_Board(int id)
+    {
+        gameBoard.ChangeBoardSkin(id);
     }
 }

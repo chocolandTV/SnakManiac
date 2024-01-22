@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bpjfri83wmryg"]
+[gd_scene load_steps=10 format=3 uid="uid://bpjfri83wmryg"]
 
 [ext_resource type="FontFile" uid="uid://be16ohuykcn1p" path="res://Ressource/Font/PoetsenOne-Regular.ttf" id="1_n2nep"]
 [ext_resource type="Script" path="res://Ressource/Scripts/score.cs" id="1_ywx4e"]
@@ -7,11 +7,12 @@
 [ext_resource type="Texture2D" uid="uid://dexwbddqr245" path="res://Ressource/Unicorn.png" id="4_th8m0"]
 [ext_resource type="Texture2D" uid="uid://cc2j84f6q6i0c" path="res://Ressource/Cherry.png" id="4_wb8bi"]
 [ext_resource type="Texture2D" uid="uid://d1h1xru1w0a8m" path="res://Ressource/Coin.png" id="5_nt8ov"]
+[ext_resource type="Script" path="res://Ressource/Scripts/FPS_Counter.cs" id="8_6pxjo"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tirdx"]
 blend_mode = 1
 
-[node name="Score" type="Node2D" node_paths=PackedStringArray("v_Score_All", "v_Score_Apple", "v_Score_Cherry", "v_Score_Coin", "v_Score_Unicorn", "v_Score_Diamond", "separators", "panels") groups=["ScoreGroup"]]
+[node name="Score" type="Node2D" node_paths=PackedStringArray("v_Score_All", "v_Score_Apple", "v_Score_Cherry", "v_Score_Coin", "v_Score_Unicorn", "v_Score_Diamond", "separators", "panels", "directionText") groups=["ScoreGroup"]]
 script = ExtResource("1_ywx4e")
 v_Score_All = NodePath("Score_Panel/Score_All")
 v_Score_Apple = NodePath("HBoxContainer/Apple_Panel/Score_Apple")
@@ -21,6 +22,7 @@ v_Score_Unicorn = NodePath("HBoxContainer/Unicorn_Panel/Score_Unicorn")
 v_Score_Diamond = NodePath("HBoxContainer/Diamond_Panel/Score_Diamond")
 separators = [NodePath("HBoxContainer/Cherry_Sep"), NodePath("HBoxContainer/Cherry_Sep"), NodePath("HBoxContainer/Cherry_Sep"), NodePath("HBoxContainer/Coin_Sep"), NodePath("HBoxContainer/Unicorn_Sep"), NodePath("HBoxContainer/Diamond_Sep")]
 panels = [NodePath("HBoxContainer/Cherry_Panel"), NodePath("HBoxContainer/Cherry_Panel"), NodePath("HBoxContainer/Cherry_Panel"), NodePath("HBoxContainer/Coin_Panel"), NodePath("HBoxContainer/Unicorn_Panel"), NodePath("HBoxContainer/Diamond_Panel")]
+directionText = NodePath("Direction_Label")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(760, 100)
@@ -42,6 +44,7 @@ custom_minimum_size = Vector2(130, 80)
 layout_mode = 2
 
 [node name="Header_Diamond" type="Label" parent="HBoxContainer/Diamond_Panel"]
+layout_mode = 0
 offset_left = 6.0
 offset_top = -3.0
 offset_right = 124.0
@@ -87,6 +90,7 @@ custom_minimum_size = Vector2(130, 80)
 layout_mode = 2
 
 [node name="Header_Unicorn" type="Label" parent="HBoxContainer/Unicorn_Panel"]
+layout_mode = 0
 offset_left = 15.0
 offset_top = -2.0
 offset_right = 120.0
@@ -132,6 +136,7 @@ custom_minimum_size = Vector2(130, 80)
 layout_mode = 2
 
 [node name="Header_Coin" type="Label" parent="HBoxContainer/Coin_Panel"]
+layout_mode = 0
 offset_left = 26.0
 offset_top = -2.0
 offset_right = 108.0
@@ -176,6 +181,7 @@ custom_minimum_size = Vector2(130, 80)
 layout_mode = 2
 
 [node name="Header_Cherry" type="Label" parent="HBoxContainer/Cherry_Panel"]
+layout_mode = 0
 offset_left = 19.0
 offset_top = -1.0
 offset_right = 118.0
@@ -219,6 +225,7 @@ custom_minimum_size = Vector2(130, 80)
 layout_mode = 2
 
 [node name="Header_Apple" type="Label" parent="HBoxContainer/Apple_Panel"]
+layout_mode = 0
 offset_left = 28.0
 offset_top = -2.0
 offset_right = 106.0
@@ -294,3 +301,28 @@ offset_left = 1.0
 offset_top = -1.0
 offset_right = 761.0
 offset_bottom = 2.0
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = 40.0
+offset_top = 78.0
+offset_right = 80.0
+offset_bottom = 101.0
+text = "DIRECTION : "
+
+[node name="Direction_Label" type="Label" parent="."]
+visible = false
+offset_left = 152.0
+offset_top = 66.0
+offset_right = 273.0
+offset_bottom = 142.0
+theme_override_font_sizes/font_size = 33
+text = "LEFT"
+
+[node name="FPS_Counter" type="Label" parent="."]
+offset_left = 21.0
+offset_top = 78.0
+offset_right = 172.0
+offset_bottom = 101.0
+text = "FPS 1232352345345"
+script = ExtResource("8_6pxjo")

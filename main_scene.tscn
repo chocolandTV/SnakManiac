@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://ba8sjv1bxg4ex"]
+[gd_scene load_steps=38 format=3 uid="uid://ba8sjv1bxg4ex"]
 
 [ext_resource type="Texture2D" uid="uid://blyonnvrx2dg4" path="res://Ressource/snakeSprite.png" id="1_be6w0"]
 [ext_resource type="Texture2D" uid="uid://u7d8x2vrc2i0" path="res://Ressource/grass.png" id="1_dotqa"]
@@ -17,7 +17,14 @@
 [ext_resource type="Texture2D" uid="uid://cc2j84f6q6i0c" path="res://Ressource/Cherry.png" id="8_yfn8a"]
 [ext_resource type="PackedScene" uid="uid://ctpcjwj56qomf" path="res://h_menu.tscn" id="9_8b88t"]
 [ext_resource type="AudioStream" uid="uid://dlxysucutefg7" path="res://Ressource/Sound/FinalBreeze.mp3" id="9_ayc51"]
+[ext_resource type="Texture2D" uid="uid://b5fak21or7lxy" path="res://Ressource/snakeSprite02.png" id="9_iyd14"]
+[ext_resource type="Texture2D" uid="uid://yfivafnkac5a" path="res://Ressource/snakeSprite03.png" id="10_d080e"]
 [ext_resource type="Script" path="res://Ressource/Scripts/BackgroundMusic.cs" id="11_pn0pj"]
+[ext_resource type="Texture2D" uid="uid://d3yr5wopmryy6" path="res://Ressource/snakeSprite04.png" id="11_t26rf"]
+[ext_resource type="Texture2D" uid="uid://tjg8r6xbj38x" path="res://Ressource/snakeSprite05.png" id="12_yqtjr"]
+[ext_resource type="Texture2D" uid="uid://ccfxq38rmny20" path="res://Ressource/grass2.png" id="14_v4sxr"]
+[ext_resource type="Texture2D" uid="uid://b5x22qcsunr51" path="res://Ressource/grass3.png" id="15_7n1bt"]
+[ext_resource type="Texture2D" uid="uid://cbry1olb3egq6" path="res://Ressource/grass4.png" id="16_hpkb2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fx0yc"]
 resource_name = "Snake"
@@ -70,6 +77,90 @@ texture = ExtResource("6_w4k8t")
 texture_region_size = Vector2i(40, 40)
 0:0/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_amuxr"]
+resource_name = "pinky guppy"
+texture = ExtResource("9_iyd14")
+texture_region_size = Vector2i(40, 40)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q5euo"]
+resource_name = "Blue Monday"
+texture = ExtResource("10_d080e")
+texture_region_size = Vector2i(40, 40)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mb0ln"]
+resource_name = "Black Star"
+texture = ExtResource("11_t26rf")
+texture_region_size = Vector2i(40, 40)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bpwwn"]
+resource_name = "Albinii"
+texture = ExtResource("12_yqtjr")
+texture_region_size = Vector2i(40, 40)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_bf581"]
 tile_size = Vector2i(40, 40)
 sources/0 = SubResource("TileSetAtlasSource_fx0yc")
@@ -78,6 +169,10 @@ sources/2 = SubResource("TileSetAtlasSource_uxgjh")
 sources/3 = SubResource("TileSetAtlasSource_8244x")
 sources/4 = SubResource("TileSetAtlasSource_q1f3n")
 sources/5 = SubResource("TileSetAtlasSource_nxk8s")
+sources/6 = SubResource("TileSetAtlasSource_amuxr")
+sources/7 = SubResource("TileSetAtlasSource_q5euo")
+sources/8 = SubResource("TileSetAtlasSource_mb0ln")
+sources/9 = SubResource("TileSetAtlasSource_bpwwn")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_e10hh"]
 playback_mode = 1
@@ -97,6 +192,11 @@ MenuPanel = NodePath("H_Menu")
 h_Menu = NodePath("H_Menu")
 gameBoard = NodePath("GameBoard")
 
+[node name="InputManager" type="Node" parent="." node_paths=PackedStringArray("gameBoard", "gameManager")]
+script = ExtResource("4_ksoxy")
+gameBoard = NodePath("../GameBoard")
+gameManager = NodePath("..")
+
 [node name="TextureRect" type="TextureRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
@@ -109,17 +209,19 @@ texture = ExtResource("1_dotqa")
 expand_mode = 5
 stretch_mode = 1
 
-[node name="GameBoard" type="TileMap" parent="." node_paths=PackedStringArray("particle", "audioPlayer", "scoreManager")]
+[node name="GameBoard" type="TileMap" parent="." node_paths=PackedStringArray("particle", "audioPlayer", "scoreManager", "GroundSkinObject")]
 position = Vector2(0, 150)
 tile_set = SubResource("TileSet_bf581")
 rendering_quadrant_size = 20
 format = 2
-layer_0/tile_data = PackedInt32Array(65536, 458752, 1)
+layer_0/tile_data = PackedInt32Array(65536, 458752, 1, 589834, 458761, 1, 589833, 458761, 1, 589832, 458761, 1, 589831, 458761, 1, 589830, 458761, 1, 589829, 458761, 1, 851973, 458761, 1, 851978, 458761, 1, 589835, 458761, 1, 589836, 458761, 1, 851980, 458761, 1, 851979, 458761, 1, 851977, 458761, 1, 851976, 458761, 1, 851975, 458761, 1, 851974, 458761, 1, 655372, 458761, 1, 720908, 458761, 1, 786444, 458761, 1, 655365, 458761, 1, 720901, 458761, 1, 786437, 458761, 1, 720902, 458761, 1, 720903, 458761, 1, 720904, 458761, 1, 720905, 458761, 1, 720906, 458761, 1, 458760, 458761, 1, 393224, 458761, 1, 327688, 458761, 1, 720910, 458761, 1, 720911, 458761, 1, 720912, 458761, 1, 720913, 458761, 1, 786449, 458761, 1, 786448, 458761, 1, 720899, 458761, 1, 720898, 458761, 1, 786434, 458761, 1, 655362, 458760, 1, 983049, 458761, 1, 1048585, 458761, 1, 720914, 458761, 1, 786447, 458761, 1, 786450, 458761, 1, 786446, 458761, 1, 786445, 458761, 1, 786443, 458761, 1, 786442, 458761, 1, 786441, 458761, 1, 786440, 458761, 1, 720909, 458761, 1, 655373, 458761, 1, 655368, 458761, 1, 655369, 458761, 1, 524297, 458761, 1, 458761, 458761, 1, 458759, 458761, 1, 262152, 458761, 1, 524296, 458761, 1, 655366, 458761, 1, 720900, 458761, 1, 720897, 458761, 1, 786433, 458761, 1, 786435, 458761, 1, 655364, 458761, 1, 589828, 458761, 1, 524293, 458761, 1, 524294, 458761, 1, 524295, 458761, 1, 786436, 458761, 1, 917513, 458761, 1, 917514, 458761, 1, 917515, 458761, 1, 917516, 458761, 1, 851981, 458761, 1, 1048584, 458761, 1, 1114121, 458761, 1)
 script = ExtResource("3_dmf3g")
 particle = NodePath("Particle")
 BoardSize = 19
 audioPlayer = NodePath("../CrunchSound")
 scoreManager = NodePath("../Score")
+groundTexture = Array[Texture2D]([ExtResource("1_dotqa"), ExtResource("14_v4sxr"), ExtResource("15_7n1bt"), ExtResource("16_hpkb2")])
+GroundSkinObject = NodePath("../TextureRect")
 
 [node name="Game_Snake_Tick" type="Timer" parent="GameBoard"]
 process_priority = 1
@@ -129,14 +231,10 @@ autostart = true
 [node name="Particle" parent="GameBoard" instance=ExtResource("6_dgto7")]
 position = Vector2(5, 0)
 
-[node name="InputManager" type="Node" parent="." node_paths=PackedStringArray("gameBoard", "gameManager")]
-script = ExtResource("4_ksoxy")
-gameBoard = NodePath("../GameBoard")
-gameManager = NodePath("..")
-
-[node name="Score" parent="." instance=ExtResource("6_ehukk")]
+[node name="Score" parent="." node_paths=PackedStringArray("gameBoard") instance=ExtResource("6_ehukk")]
 visible = false
 position = Vector2(6, 45)
+gameBoard = NodePath("../GameBoard")
 
 [node name="BackgroundMusic" type="AudioStreamPlayer2D" parent="."]
 process_priority = 1
@@ -153,7 +251,8 @@ max_polyphony = 3
 bus = &"SFX"
 area_mask = 2
 
-[node name="H_Menu" parent="." instance=ExtResource("9_8b88t")]
+[node name="H_Menu" parent="." node_paths=PackedStringArray("gameBoard") instance=ExtResource("9_8b88t")]
+gameBoard = NodePath("../GameBoard")
 
 [connection signal="timeout" from="GameBoard/Game_Snake_Tick" to="GameBoard" method="On_game_snake_tick_timeout"]
 [connection signal="finished" from="BackgroundMusic" to="BackgroundMusic" method="_on_background_music_finished"]

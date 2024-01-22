@@ -14,13 +14,33 @@ public partial class score : Node2D
     public bool[] vPanel = new bool[6] { false, false, false, false, false, false };
     public int[] Score;
     private FileManager fileManager;
-
+    [Export]
+    public bool isDebugDirection = false;
+    [Export]
+    public GameBoard gameBoard;
+    [Export]
+    public Label directionText;
     public override void _Ready()
     {
         fileManager = GetNode<FileManager>("/root/FileManager");
         Score = fileManager.GetScoreData();
         LoadHighscore();
         Clear_Score();
+    }
+    public override void _Process(double delta)
+    {
+        directionText.Text = GetDirectionText(gameBoard.Input_Direction);
+    }
+    private string GetDirectionText(Vector2I direction)
+    {
+        switch (direction)
+		{
+			case Vector2I(0, 1): return "Down";
+			case Vector2I(1, 0): return "Right";
+			case Vector2I(-1, 0): return "Left";
+			case Vector2I(0, -1): return "Up";
+			default: throw new ArgumentException();
+		}
     }
     public void Clear_Score()
     {

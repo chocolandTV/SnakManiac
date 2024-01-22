@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://ctpcjwj56qomf"]
+[gd_scene load_steps=27 format=3 uid="uid://ctpcjwj56qomf"]
 
 [ext_resource type="Script" path="res://Ressource/Scripts/H_Menu.cs" id="1_fx78u"]
 [ext_resource type="FontFile" uid="uid://be16ohuykcn1p" path="res://Ressource/Font/PoetsenOne-Regular.ttf" id="2_xc8ll"]
@@ -6,17 +6,26 @@
 [ext_resource type="Script" path="res://Ressource/Scripts/MasterSlider.cs" id="3_u7uf4"]
 [ext_resource type="Script" path="res://Ressource/Scripts/SoundSlider.cs" id="4_ucor2"]
 [ext_resource type="Script" path="res://Ressource/Scripts/MusicSlider.cs" id="5_gnutd"]
+[ext_resource type="Texture2D" uid="uid://bxvth51sflv2e" path="res://Ressource/icon.png" id="5_sjrfs"]
 [ext_resource type="Texture2D" uid="uid://dpb26wxvawgdn" path="res://Ressource/Controls.png" id="6_kvvnu"]
 [ext_resource type="Texture2D" uid="uid://dxixg1m8oqnac" path="res://Ressource/UI_Border.png" id="7_jbgdr"]
 [ext_resource type="Texture2D" uid="uid://byohbqcxmv2uc" path="res://Ressource/apple.png" id="8_sajja"]
+[ext_resource type="Texture2D" uid="uid://dwhwrcrresa0b" path="res://Ressource/icon_Pink.png" id="10_1gc5v"]
 [ext_resource type="Script" path="res://Ressource/Scripts/HighscoreManager.cs" id="10_bcdm0"]
+[ext_resource type="Texture2D" uid="uid://u7d8x2vrc2i0" path="res://Ressource/grass.png" id="10_qpm8a"]
+[ext_resource type="Texture2D" uid="uid://cqtikdb5a4msc" path="res://Ressource/icon_Blue.png" id="11_bgpa0"]
 [ext_resource type="Texture2D" uid="uid://cvw4d66bxn1mv" path="res://Ressource/Diamond.png" id="11_ks8n8"]
 [ext_resource type="Texture2D" uid="uid://dexwbddqr245" path="res://Ressource/Unicorn.png" id="12_82oo4"]
+[ext_resource type="Texture2D" uid="uid://yrkota3pyg7t" path="res://Ressource/icon_Black.png" id="12_r5fh3"]
+[ext_resource type="Texture2D" uid="uid://bnjvop03mqe3v" path="res://Ressource/icon_Albino.png" id="13_3u8qn"]
 [ext_resource type="Texture2D" uid="uid://d1h1xru1w0a8m" path="res://Ressource/Coin.png" id="13_8p343"]
 [ext_resource type="Texture2D" uid="uid://cc2j84f6q6i0c" path="res://Ressource/Cherry.png" id="14_xuvda"]
 [ext_resource type="Texture2D" uid="uid://cvpxnsxg5kqen" path="res://Ressource/updated.png" id="15_t8w06"]
+[ext_resource type="Texture2D" uid="uid://ccfxq38rmny20" path="res://Ressource/grass2.png" id="15_tiru5"]
+[ext_resource type="Texture2D" uid="uid://b5x22qcsunr51" path="res://Ressource/grass3.png" id="16_iwpy2"]
+[ext_resource type="Texture2D" uid="uid://cbry1olb3egq6" path="res://Ressource/grass4.png" id="17_i2cfk"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i68t5"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w2ls0"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_25r0h"]
 blend_mode = 1
@@ -33,9 +42,9 @@ optionMenu = NodePath("OptionPanel")
 HighscoreMenu = NodePath("HighscorePanel")
 highscoreManager = NodePath("HighscorePanel")
 GameOverMenu = NodePath("GameOverPanel")
-VolumeSlider = NodePath("OptionPanel/VBoxContainer/M_Volume_Panel/MasterSlider")
-SFXslider = NodePath("OptionPanel/VBoxContainer/S_Volume_Panel/SoundSlider")
-MusicSlider = NodePath("OptionPanel/VBoxContainer/Music_Volume_Panel/MusicSlider")
+VolumeSlider = NodePath("OptionPanel/Volume_Setting_MarginBox/M_Volume_Panel/MasterSlider")
+SFXslider = NodePath("OptionPanel/Volume_Setting_MarginBox/S_Volume_Panel/SoundSlider")
+MusicSlider = NodePath("OptionPanel/Volume_Setting_MarginBox/Music_Volume_Panel/MusicSlider")
 GameOverHighscoreValue = NodePath("GameOverPanel/VBoxContainer/GameOver_Panel/HighscoreValue")
 button_start = NodePath("MenuButtons/VBoxContainer/Button_Play")
 button_Resume = NodePath("MenuButtons/VBoxContainer/Button_Resume")
@@ -100,19 +109,19 @@ text = "Resume"
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_xc8ll")
 theme_override_font_sizes/font_size = 33
-text = "Play"
+text = "Zzztart"
 
 [node name="Button_Settings" type="Button" parent="MenuButtons/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_xc8ll")
 theme_override_font_sizes/font_size = 33
-text = "Settings"
+text = "Zzettings"
 
 [node name="Button_Highscore" type="Button" parent="MenuButtons/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_xc8ll")
 theme_override_font_sizes/font_size = 33
-text = "Highscore"
+text = "Highzcore"
 
 [node name="Button_Quit" type="Button" parent="MenuButtons/VBoxContainer"]
 layout_mode = 2
@@ -124,84 +133,33 @@ text = "Quit
 [node name="OptionPanel" type="MarginContainer" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 200.0
-offset_top = 88.0
-offset_right = 800.0
-offset_bottom = 688.0
+offset_left = 222.0
+offset_top = 244.0
+offset_right = 422.0
+offset_bottom = 402.0
 
 [node name="Panel" type="Panel" parent="OptionPanel"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_i68t5")
+theme_override_styles/panel = SubResource("StyleBoxFlat_w2ls0")
 
 [node name="ColorRect" type="ColorRect" parent="OptionPanel/Panel"]
 custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
-offset_left = 79.0
-offset_top = 153.0
-offset_right = 579.0
-offset_bottom = 753.0
+offset_right = 550.0
+offset_bottom = 600.0
 color = Color(0.168627, 0.168627, 0.168627, 1)
 
-[node name="VBoxContainer_Control" type="VBoxContainer" parent="OptionPanel"]
+[node name="Volume_Setting_MarginBox" type="VBoxContainer" parent="OptionPanel"]
+custom_minimum_size = Vector2(250, 200)
 layout_mode = 2
-
-[node name="Panel" type="Panel" parent="OptionPanel/VBoxContainer_Control"]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="TextureRect" type="TextureRect" parent="OptionPanel/VBoxContainer_Control/Panel"]
-layout_mode = 0
-offset_left = 207.0
-offset_top = 405.0
-offset_right = 544.0
-offset_bottom = 945.0
-scale = Vector2(0.52, 0.52)
-texture = ExtResource("6_kvvnu")
-
-[node name="Label_Pause" type="Label" parent="OptionPanel/VBoxContainer_Control/Panel"]
-layout_mode = 0
-offset_left = 366.0
-offset_top = 425.0
-offset_right = 487.0
-offset_bottom = 448.0
-text = "SPACE  -  PAUSE"
-
-[node name="Label_WASD" type="Label" parent="OptionPanel/VBoxContainer_Control/Panel"]
-layout_mode = 0
-offset_left = 368.0
-offset_top = 499.0
-offset_right = 489.0
-offset_bottom = 522.0
-text = "W,A,S,D -  Move Snake"
-
-[node name="Label_ARROW" type="Label" parent="OptionPanel/VBoxContainer_Control/Panel"]
-layout_mode = 0
-offset_left = 368.0
-offset_top = 570.0
-offset_right = 489.0
-offset_bottom = 593.0
-text = "ARROWS - Move Snake
-"
-
-[node name="Label_ESC" type="Label" parent="OptionPanel/VBoxContainer_Control/Panel"]
-layout_mode = 0
-offset_left = 368.0
-offset_top = 642.0
-offset_right = 489.0
-offset_bottom = 665.0
-text = "ESC - Open Menu"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="OptionPanel"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 8
 alignment = 1
 
-[node name="M_Volume_Panel" type="Panel" parent="OptionPanel/VBoxContainer"]
+[node name="M_Volume_Panel" type="Panel" parent="OptionPanel/Volume_Setting_MarginBox"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 
-[node name="Text" type="Label" parent="OptionPanel/VBoxContainer/M_Volume_Panel"]
+[node name="Text" type="Label" parent="OptionPanel/Volume_Setting_MarginBox/M_Volume_Panel"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -215,7 +173,7 @@ theme_override_font_sizes/font_size = 12
 text = "Master Volume"
 horizontal_alignment = 1
 
-[node name="MasterSlider" type="HSlider" parent="OptionPanel/VBoxContainer/M_Volume_Panel"]
+[node name="MasterSlider" type="HSlider" parent="OptionPanel/Volume_Setting_MarginBox/M_Volume_Panel"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 1
 anchors_preset = 8
@@ -234,11 +192,11 @@ step = 0.001
 value = 0.5
 script = ExtResource("3_u7uf4")
 
-[node name="S_Volume_Panel" type="Panel" parent="OptionPanel/VBoxContainer"]
+[node name="S_Volume_Panel" type="Panel" parent="OptionPanel/Volume_Setting_MarginBox"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 
-[node name="Text" type="Label" parent="OptionPanel/VBoxContainer/S_Volume_Panel"]
+[node name="Text" type="Label" parent="OptionPanel/Volume_Setting_MarginBox/S_Volume_Panel"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -253,7 +211,7 @@ text = "Sound Volume
 "
 horizontal_alignment = 1
 
-[node name="SoundSlider" type="HSlider" parent="OptionPanel/VBoxContainer/S_Volume_Panel"]
+[node name="SoundSlider" type="HSlider" parent="OptionPanel/Volume_Setting_MarginBox/S_Volume_Panel"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 1
 anchors_preset = 8
@@ -272,11 +230,11 @@ step = 0.001
 value = 0.5
 script = ExtResource("4_ucor2")
 
-[node name="Music_Volume_Panel" type="Panel" parent="OptionPanel/VBoxContainer"]
+[node name="Music_Volume_Panel" type="Panel" parent="OptionPanel/Volume_Setting_MarginBox"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 
-[node name="Text" type="Label" parent="OptionPanel/VBoxContainer/Music_Volume_Panel"]
+[node name="Text" type="Label" parent="OptionPanel/Volume_Setting_MarginBox/Music_Volume_Panel"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -290,7 +248,7 @@ theme_override_font_sizes/font_size = 12
 text = "Music Volume"
 horizontal_alignment = 1
 
-[node name="MusicSlider" type="HSlider" parent="OptionPanel/VBoxContainer/Music_Volume_Panel"]
+[node name="MusicSlider" type="HSlider" parent="OptionPanel/Volume_Setting_MarginBox/Music_Volume_Panel"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 1
 anchors_preset = 8
@@ -308,6 +266,117 @@ max_value = 1.0
 step = 0.001
 value = 0.5
 script = ExtResource("5_gnutd")
+
+[node name="Control_Panel" type="Panel" parent="OptionPanel/Volume_Setting_MarginBox"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="TextureRect" type="TextureRect" parent="OptionPanel/Volume_Setting_MarginBox/Control_Panel"]
+layout_mode = 2
+offset_left = -21.0
+offset_top = -1.0
+offset_right = 316.0
+offset_bottom = 539.0
+scale = Vector2(0.525, 0.525)
+texture = ExtResource("6_kvvnu")
+
+[node name="Label_Pause" type="Label" parent="OptionPanel/Volume_Setting_MarginBox/Control_Panel"]
+layout_mode = 2
+offset_left = 123.0
+offset_top = 21.0
+offset_right = 673.0
+offset_bottom = 44.0
+text = "SPACE  -  PAUSE"
+
+[node name="Label_WASD" type="Label" parent="OptionPanel/Volume_Setting_MarginBox/Control_Panel"]
+layout_mode = 2
+offset_left = 131.0
+offset_top = 94.0
+offset_right = 681.0
+offset_bottom = 117.0
+text = "W,A,S,D -  Move Snake"
+
+[node name="Label_ARROW" type="Label" parent="OptionPanel/Volume_Setting_MarginBox/Control_Panel"]
+layout_mode = 2
+offset_left = 133.0
+offset_top = 173.0
+offset_right = 683.0
+offset_bottom = 196.0
+text = "ARROWS - Move Snake
+"
+
+[node name="Label_ESC" type="Label" parent="OptionPanel/Volume_Setting_MarginBox/Control_Panel"]
+layout_mode = 2
+offset_left = 115.0
+offset_top = 241.0
+offset_right = 665.0
+offset_bottom = 264.0
+text = "ESC - Open Menu"
+
+[node name="Customizer_Panel" type="Panel" parent="OptionPanel/Volume_Setting_MarginBox"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Option_Snake" type="OptionButton" parent="OptionPanel/Volume_Setting_MarginBox/Customizer_Panel"]
+layout_mode = 0
+offset_left = 292.0
+offset_top = -138.0
+offset_right = 524.0
+offset_bottom = -98.0
+item_count = 5
+selected = 0
+popup/item_0/text = "Forest Snakii"
+popup/item_0/icon = ExtResource("5_sjrfs")
+popup/item_0/id = 0
+popup/item_1/text = "pinky guppy"
+popup/item_1/icon = ExtResource("10_1gc5v")
+popup/item_1/id = 1
+popup/item_2/text = "Blue Monday"
+popup/item_2/icon = ExtResource("11_bgpa0")
+popup/item_2/id = 2
+popup/item_3/text = "Black Star"
+popup/item_3/icon = ExtResource("12_r5fh3")
+popup/item_3/id = 3
+popup/item_4/text = "Albinii"
+popup/item_4/icon = ExtResource("13_3u8qn")
+popup/item_4/id = 4
+
+[node name="Label" type="Label" parent="OptionPanel/Volume_Setting_MarginBox/Customizer_Panel"]
+layout_mode = 0
+offset_left = 335.0
+offset_top = -170.0
+offset_right = 521.0
+offset_bottom = -147.0
+text = "Personal Znake Zettings"
+
+[node name="Option_Ground" type="OptionButton" parent="OptionPanel/Volume_Setting_MarginBox/Customizer_Panel"]
+layout_mode = 2
+offset_left = 289.0
+offset_top = -45.0
+offset_right = 521.0
+offset_bottom = 43.0
+item_count = 4
+selected = 0
+popup/item_0/text = "Kitchen Floor"
+popup/item_0/icon = ExtResource("10_qpm8a")
+popup/item_0/id = 0
+popup/item_1/text = "Grass"
+popup/item_1/icon = ExtResource("15_tiru5")
+popup/item_1/id = 1
+popup/item_2/text = "Modern "
+popup/item_2/icon = ExtResource("16_iwpy2")
+popup/item_2/id = 2
+popup/item_3/text = "Stone"
+popup/item_3/icon = ExtResource("17_i2cfk")
+popup/item_3/id = 3
+
+[node name="Label2" type="Label" parent="OptionPanel/Volume_Setting_MarginBox/Customizer_Panel"]
+layout_mode = 0
+offset_left = 341.0
+offset_top = -79.0
+offset_right = 471.0
+offset_bottom = -56.0
+text = "Ground  Zettings"
 
 [node name="GameOverPanel" type="MarginContainer" parent="."]
 visible = false
@@ -338,6 +407,7 @@ text = "Game Over"
 horizontal_alignment = 1
 
 [node name="Header" type="Label" parent="GameOverPanel/VBoxContainer/GameOver_Panel"]
+layout_mode = 0
 offset_left = 7.0
 offset_top = -833.0
 offset_right = 807.0
@@ -484,6 +554,7 @@ custom_minimum_size = Vector2(130, 80)
 layout_mode = 2
 
 [node name="Header_Diamond" type="Label" parent="HighscorePanel/Panel/HBoxContainer/Diamond_Panel"]
+layout_mode = 0
 offset_left = 6.0
 offset_top = -3.0
 offset_right = 124.0
@@ -529,6 +600,7 @@ custom_minimum_size = Vector2(130, 80)
 layout_mode = 2
 
 [node name="Header_Unicorn" type="Label" parent="HighscorePanel/Panel/HBoxContainer/Unicorn_Panel"]
+layout_mode = 0
 offset_left = 15.0
 offset_top = -2.0
 offset_right = 120.0
@@ -574,6 +646,7 @@ custom_minimum_size = Vector2(130, 80)
 layout_mode = 2
 
 [node name="Header_Coin" type="Label" parent="HighscorePanel/Panel/HBoxContainer/Coin_Panel"]
+layout_mode = 0
 offset_left = 26.0
 offset_top = -2.0
 offset_right = 108.0
@@ -618,6 +691,7 @@ custom_minimum_size = Vector2(130, 80)
 layout_mode = 2
 
 [node name="Header_Cherry" type="Label" parent="HighscorePanel/Panel/HBoxContainer/Cherry_Panel"]
+layout_mode = 0
 offset_left = 19.0
 offset_top = -1.0
 offset_right = 118.0
@@ -661,6 +735,7 @@ custom_minimum_size = Vector2(130, 80)
 layout_mode = 2
 
 [node name="Header_Apple" type="Label" parent="HighscorePanel/Panel/HBoxContainer/Apple_Panel"]
+layout_mode = 0
 offset_left = 28.0
 offset_top = -2.0
 offset_right = 106.0
@@ -723,8 +798,10 @@ texture = ExtResource("15_t8w06")
 [connection signal="pressed" from="MenuButtons/VBoxContainer/Button_Settings" to="." method="_on_option_pressed"]
 [connection signal="pressed" from="MenuButtons/VBoxContainer/Button_Highscore" to="." method="_on_highscore_pressed"]
 [connection signal="pressed" from="MenuButtons/VBoxContainer/Button_Quit" to="." method="_on_quit_pressed"]
-[connection signal="value_changed" from="OptionPanel/VBoxContainer/M_Volume_Panel/MasterSlider" to="OptionPanel/VBoxContainer/M_Volume_Panel/MasterSlider" method="_on_value_changed"]
-[connection signal="value_changed" from="OptionPanel/VBoxContainer/S_Volume_Panel/SoundSlider" to="OptionPanel/VBoxContainer/S_Volume_Panel/SoundSlider" method="_on_value_changed"]
-[connection signal="value_changed" from="OptionPanel/VBoxContainer/Music_Volume_Panel/MusicSlider" to="OptionPanel/VBoxContainer/Music_Volume_Panel/MusicSlider" method="_on_value_changed"]
+[connection signal="value_changed" from="OptionPanel/Volume_Setting_MarginBox/M_Volume_Panel/MasterSlider" to="OptionPanel/Volume_Setting_MarginBox/M_Volume_Panel/MasterSlider" method="_on_value_changed"]
+[connection signal="value_changed" from="OptionPanel/Volume_Setting_MarginBox/S_Volume_Panel/SoundSlider" to="OptionPanel/Volume_Setting_MarginBox/S_Volume_Panel/SoundSlider" method="_on_value_changed"]
+[connection signal="value_changed" from="OptionPanel/Volume_Setting_MarginBox/Music_Volume_Panel/MusicSlider" to="OptionPanel/Volume_Setting_MarginBox/Music_Volume_Panel/MusicSlider" method="_on_value_changed"]
+[connection signal="item_selected" from="OptionPanel/Volume_Setting_MarginBox/Customizer_Panel/Option_Snake" to="." method="_on_optionMenu_Select_Snake"]
+[connection signal="item_selected" from="OptionPanel/Volume_Setting_MarginBox/Customizer_Panel/Option_Ground" to="." method="_on_optionMenu_Select_Board"]
 [connection signal="pressed" from="GameOverPanel/VBoxContainer/GameOver_Panel/Button_Restart" to="." method="_on_Restart_pressed"]
 [connection signal="pressed" from="GameOverPanel/VBoxContainer/GameOver_Panel/Button_Quit" to="." method="_on_quit_pressed"]
