@@ -41,6 +41,7 @@ public partial class GameBoard : TileMap
 
 	// INPUT DIRECTION 
 	public Vector2I Input_Direction = Vector2I.Right;
+	public Queue<Vector2I> Input_Buffer = new Queue<Vector2I>();
 	private Vector2I Snake_Direction = Vector2I.Right;
 	private Vector2I snake_old_Direction = new Vector2I(-1, 0);
 
@@ -254,10 +255,11 @@ public partial class GameBoard : TileMap
 		// CHECK IF NEW DIRECTION != 180 
 		if (Snake_Direction == OppositeDirection(snake_old_Direction))
 		{
-			
+
 			Snake_Direction = snake_old_Direction;
 			Input_Direction = snake_old_Direction;
 		}
+
 		Vector2I lastPos = Snake_body.First();
 		Snake_body[0] = Snake_body[0] + Snake_Direction;
 
@@ -343,6 +345,10 @@ public partial class GameBoard : TileMap
 	{
 		if (isRunning)
 		{
+			if (Input_Buffer.Count > 0)
+				Snake_Direction = Input_Buffer.Dequeue();
+
+
 			Move();
 			Draw_Snake();
 			Check_Fruit_Eaten();
@@ -354,7 +360,7 @@ public partial class GameBoard : TileMap
 		if (isRunning)
 		{
 			Check_Border();
-			Snake_Direction = Input_Direction;
+
 		}
 	}
 }
