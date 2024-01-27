@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ce3psnqq2d2eu"
+path="res://.godot/imported/Deltarune - Lancer.mp3-fa84bd84329898449b556e57640b5a05.mp3str"
+
+[deps]
+
+source_file="res://Ressource/Sound/Deltarune - Lancer.mp3"
+dest_files=["res://.godot/imported/Deltarune - Lancer.mp3-fa84bd84329898449b556e57640b5a05.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

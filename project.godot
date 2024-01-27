@@ -11,9 +11,12 @@ config_version=5
 [application]
 
 config/name="SnakManiac"
+config/version="1.03"
 run/main_scene="res://main_scene.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
-config/icon="res://Ressource/LOGO2.png"
+boot_splash/bg_color=Color(0.141176, 0.141176, 0.141176, 1)
+boot_splash/image="res://Ressource/LOGO2.png"
+config/icon="res://Ressource/icon.png"
 
 [autoload]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://ctpcjwj56qomf"]
+[gd_scene load_steps=29 format=3 uid="uid://ctpcjwj56qomf"]
 
 [ext_resource type="Script" path="res://Ressource/Scripts/H_Menu.cs" id="1_fx78u"]
 [ext_resource type="FontFile" uid="uid://be16ohuykcn1p" path="res://Ressource/Font/PoetsenOne-Regular.ttf" id="2_xc8ll"]
@@ -24,13 +24,16 @@
 [ext_resource type="Texture2D" uid="uid://ccfxq38rmny20" path="res://Ressource/grass2.png" id="15_tiru5"]
 [ext_resource type="Texture2D" uid="uid://b5x22qcsunr51" path="res://Ressource/grass3.png" id="16_iwpy2"]
 [ext_resource type="Texture2D" uid="uid://cbry1olb3egq6" path="res://Ressource/grass4.png" id="17_i2cfk"]
+[ext_resource type="Texture2D" uid="uid://dc8gjxwurhcv4" path="res://Ressource/MusicPlaylist.png" id="18_dcq1h"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w2ls0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5f2wt"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_25r0h"]
 blend_mode = 1
 
-[node name="H_Menu" type="Control" node_paths=PackedStringArray("optionMenu", "HighscoreMenu", "highscoreManager", "GameOverMenu", "VolumeSlider", "SFXslider", "MusicSlider", "GameOverHighscoreValue", "button_start", "button_Resume", "PauseColorRect")]
+[node name="H_Menu" type="Control" node_paths=PackedStringArray("optionMenu", "HighscoreMenu", "highscoreManager", "GameOverMenu", "VolumeSlider", "SFXslider", "MusicSlider", "GameOverHighscoreValue", "button_start", "button_Resume", "PauseColorRect", "checkBoxes", "updatedScore")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -49,6 +52,8 @@ GameOverHighscoreValue = NodePath("GameOverPanel/VBoxContainer/GameOver_Panel/Hi
 button_start = NodePath("MenuButtons/VBoxContainer/Button_Play")
 button_Resume = NodePath("MenuButtons/VBoxContainer/Button_Resume")
 PauseColorRect = NodePath("PauseColor")
+checkBoxes = [NodePath("OptionPanel/Volume_Setting_MarginBox/Customizer_Music/CheckBox"), NodePath("OptionPanel/Volume_Setting_MarginBox/Customizer_Music/CheckBox2"), NodePath("OptionPanel/Volume_Setting_MarginBox/Customizer_Music/CheckBox3")]
+updatedScore = NodePath("HighscorePanel/UpdatedScore")
 
 [node name="PauseColor" type="ColorRect" parent="."]
 visible = false
@@ -129,6 +134,11 @@ theme_override_fonts/font = ExtResource("2_xc8ll")
 theme_override_font_sizes/font_size = 33
 text = "Quit
 "
+
+[node name="Button" type="Button" parent="MenuButtons/VBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Version: 1.03"
 
 [node name="OptionPanel" type="MarginContainer" parent="."]
 visible = false
@@ -378,6 +388,64 @@ offset_right = 471.0
 offset_bottom = -56.0
 text = "Ground  Zettings"
 
+[node name="Customizer_Music" type="Panel" parent="OptionPanel/Volume_Setting_MarginBox"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="OptionPanel/Volume_Setting_MarginBox/Customizer_Music"]
+layout_mode = 0
+offset_left = 319.0
+offset_top = 50.0
+offset_right = 519.0
+offset_bottom = 350.0
+color = Color(0.117647, 0.117647, 0.117647, 1)
+
+[node name="Label" type="Label" parent="OptionPanel/Volume_Setting_MarginBox/Customizer_Music"]
+layout_mode = 0
+offset_left = 339.0
+offset_top = 87.0
+offset_right = 399.0
+offset_bottom = 110.0
+text = "Playlist:"
+
+[node name="TextureRect" type="TextureRect" parent="OptionPanel/Volume_Setting_MarginBox/Customizer_Music"]
+layout_mode = 0
+offset_left = 418.0
+offset_top = 50.0
+offset_right = 498.0
+offset_bottom = 130.0
+texture = ExtResource("18_dcq1h")
+
+[node name="CheckBox" type="CheckBox" parent="OptionPanel/Volume_Setting_MarginBox/Customizer_Music"]
+layout_mode = 0
+offset_left = 333.0
+offset_top = 140.0
+offset_right = 526.0
+offset_bottom = 171.0
+theme_override_fonts/font = ExtResource("2_xc8ll")
+button_pressed = true
+text = "Deltarune - Lancer"
+
+[node name="CheckBox2" type="CheckBox" parent="OptionPanel/Volume_Setting_MarginBox/Customizer_Music"]
+layout_mode = 0
+offset_left = 333.0
+offset_top = 179.0
+offset_right = 526.0
+offset_bottom = 207.0
+theme_override_fonts/font = ExtResource("2_xc8ll")
+button_pressed = true
+text = "Flashflare"
+
+[node name="CheckBox3" type="CheckBox" parent="OptionPanel/Volume_Setting_MarginBox/Customizer_Music"]
+layout_mode = 0
+offset_left = 333.0
+offset_top = 216.0
+offset_right = 526.0
+offset_bottom = 264.0
+theme_override_fonts/font = ExtResource("2_xc8ll")
+button_pressed = true
+text = "Spirit Tracks - 
+Realm Overworld"
+
 [node name="GameOverPanel" type="MarginContainer" parent="."]
 visible = false
 layout_mode = 0
@@ -505,6 +573,7 @@ updatedScore = NodePath("UpdatedScore")
 
 [node name="Panel" type="Panel" parent="HighscorePanel"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_5f2wt")
 
 [node name="ColorRect" type="ColorRect" parent="HighscorePanel/Panel"]
 custom_minimum_size = Vector2(750, 200)
@@ -803,5 +872,8 @@ texture = ExtResource("15_t8w06")
 [connection signal="value_changed" from="OptionPanel/Volume_Setting_MarginBox/Music_Volume_Panel/MusicSlider" to="OptionPanel/Volume_Setting_MarginBox/Music_Volume_Panel/MusicSlider" method="_on_value_changed"]
 [connection signal="item_selected" from="OptionPanel/Volume_Setting_MarginBox/Customizer_Panel/Option_Snake" to="." method="_on_optionMenu_Select_Snake"]
 [connection signal="item_selected" from="OptionPanel/Volume_Setting_MarginBox/Customizer_Panel/Option_Ground" to="." method="_on_optionMenu_Select_Board"]
+[connection signal="toggled" from="OptionPanel/Volume_Setting_MarginBox/Customizer_Music/CheckBox" to="." method="_on_check_box01_toggled"]
+[connection signal="toggled" from="OptionPanel/Volume_Setting_MarginBox/Customizer_Music/CheckBox2" to="." method="_on_check_box02_toggled"]
+[connection signal="toggled" from="OptionPanel/Volume_Setting_MarginBox/Customizer_Music/CheckBox3" to="." method="_on_check_box03_toggled"]
 [connection signal="pressed" from="GameOverPanel/VBoxContainer/GameOver_Panel/Button_Restart" to="." method="_on_Restart_pressed"]
 [connection signal="pressed" from="GameOverPanel/VBoxContainer/GameOver_Panel/Button_Quit" to="." method="_on_quit_pressed"]

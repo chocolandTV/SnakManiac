@@ -24,6 +24,7 @@ public partial class HighscoreManager : MarginContainer
 
       public void LoadHighscore()
       {
+            
             highscore = fileManager.GetScoreData();
 
             GD.Print("Load Highscore");
@@ -67,6 +68,10 @@ public partial class HighscoreManager : MarginContainer
                   fileManager.SaveScoreData(score);
                   GD.Print("New Highscore - Saved.");
                   updatedScore.Show();
+            }
+            else{
+                  GD.Print("Highscore Not Saved.");
+                  updatedScore.Hide();
             }
       }
 

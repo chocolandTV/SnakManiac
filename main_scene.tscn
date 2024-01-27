@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://ba8sjv1bxg4ex"]
+[gd_scene load_steps=37 format=3 uid="uid://ba8sjv1bxg4ex"]
 
 [ext_resource type="Texture2D" uid="uid://blyonnvrx2dg4" path="res://Ressource/snakeSprite.png" id="1_be6w0"]
 [ext_resource type="Texture2D" uid="uid://u7d8x2vrc2i0" path="res://Ressource/grass.png" id="1_dotqa"]
@@ -10,13 +10,10 @@
 [ext_resource type="PackedScene" uid="uid://cvwraxid04yf" path="res://Ressource/particle.tscn" id="6_dgto7"]
 [ext_resource type="PackedScene" uid="uid://bpjfri83wmryg" path="res://score.tscn" id="6_ehukk"]
 [ext_resource type="Texture2D" uid="uid://cvw4d66bxn1mv" path="res://Ressource/Diamond.png" id="6_w4k8t"]
-[ext_resource type="AudioStream" uid="uid://dbpe5pba1alm4" path="res://Ressource/Sound/Normal.mp3" id="7_1kfrv"]
 [ext_resource type="AudioStream" uid="uid://dkxuapri0i7fs" path="res://Ressource/Sound/crunch.wav" id="7_1req0"]
 [ext_resource type="Texture2D" uid="uid://dexwbddqr245" path="res://Ressource/Unicorn.png" id="7_4o0fc"]
-[ext_resource type="AudioStream" uid="uid://ci2p5aktilphj" path="res://Ressource/Sound/speedy(1).mp3" id="8_1fm2d"]
 [ext_resource type="Texture2D" uid="uid://cc2j84f6q6i0c" path="res://Ressource/Cherry.png" id="8_yfn8a"]
 [ext_resource type="PackedScene" uid="uid://ctpcjwj56qomf" path="res://h_menu.tscn" id="9_8b88t"]
-[ext_resource type="AudioStream" uid="uid://dlxysucutefg7" path="res://Ressource/Sound/FinalBreeze.mp3" id="9_ayc51"]
 [ext_resource type="Texture2D" uid="uid://b5fak21or7lxy" path="res://Ressource/snakeSprite02.png" id="9_iyd14"]
 [ext_resource type="Texture2D" uid="uid://yfivafnkac5a" path="res://Ressource/snakeSprite03.png" id="10_d080e"]
 [ext_resource type="Script" path="res://Ressource/Scripts/BackgroundMusic.cs" id="11_pn0pj"]
@@ -25,6 +22,9 @@
 [ext_resource type="Texture2D" uid="uid://ccfxq38rmny20" path="res://Ressource/grass2.png" id="14_v4sxr"]
 [ext_resource type="Texture2D" uid="uid://b5x22qcsunr51" path="res://Ressource/grass3.png" id="15_7n1bt"]
 [ext_resource type="Texture2D" uid="uid://cbry1olb3egq6" path="res://Ressource/grass4.png" id="16_hpkb2"]
+[ext_resource type="AudioStream" uid="uid://kd1u6elddkot" path="res://Ressource/Sound/SpiritTracks.mp3" id="20_d6s0t"]
+[ext_resource type="AudioStream" uid="uid://ce3psnqq2d2eu" path="res://Ressource/Sound/Deltarune - Lancer.mp3" id="22_pwxa2"]
+[ext_resource type="AudioStream" uid="uid://8a8o3hrc7fsx" path="res://Ressource/Sound/Flashflare.mp3" id="23_wkei3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fx0yc"]
 resource_name = "Snake"
@@ -174,16 +174,6 @@ sources/7 = SubResource("TileSetAtlasSource_q5euo")
 sources/8 = SubResource("TileSetAtlasSource_mb0ln")
 sources/9 = SubResource("TileSetAtlasSource_bpwwn")
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_e10hh"]
-playback_mode = 1
-streams_count = 3
-stream_0/stream = ExtResource("8_1fm2d")
-stream_0/weight = 1.0
-stream_1/stream = ExtResource("9_ayc51")
-stream_1/weight = 1.0
-stream_2/stream = ExtResource("7_1kfrv")
-stream_2/weight = 1.0
-
 [node name="MainScene" type="Node" node_paths=PackedStringArray("ScorePanel", "scoreManager", "MenuPanel", "h_Menu", "gameBoard")]
 script = ExtResource("1_oi33h")
 ScorePanel = NodePath("Score")
@@ -236,23 +226,22 @@ visible = false
 position = Vector2(6, 45)
 gameBoard = NodePath("../GameBoard")
 
-[node name="BackgroundMusic" type="AudioStreamPlayer2D" parent="."]
-process_priority = 1
-stream = SubResource("AudioStreamRandomizer_e10hh")
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("20_d6s0t")
 autoplay = true
 bus = &"Music"
 script = ExtResource("11_pn0pj")
+DefaultAudioSongList = Array[AudioStream]([ExtResource("22_pwxa2"), ExtResource("23_wkei3"), ExtResource("20_d6s0t")])
 
 [node name="CrunchSound" type="AudioStreamPlayer2D" parent="."]
-process_priority = -1
 stream = ExtResource("7_1req0")
 pitch_scale = 1.15
-max_polyphony = 3
 bus = &"SFX"
 area_mask = 2
 
-[node name="H_Menu" parent="." node_paths=PackedStringArray("gameBoard") instance=ExtResource("9_8b88t")]
+[node name="H_Menu" parent="." node_paths=PackedStringArray("gameBoard", "MusicPlayer") instance=ExtResource("9_8b88t")]
 gameBoard = NodePath("../GameBoard")
+MusicPlayer = NodePath("../BackgroundMusic")
 
 [connection signal="timeout" from="GameBoard/Game_Snake_Tick" to="GameBoard" method="On_game_snake_tick_timeout"]
 [connection signal="finished" from="BackgroundMusic" to="BackgroundMusic" method="_on_background_music_finished"]
